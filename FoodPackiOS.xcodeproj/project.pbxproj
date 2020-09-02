@@ -16,6 +16,7 @@
 		2D120FB524FFF15200064C40 /* FoodPackiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D120FB424FFF15200064C40 /* FoodPackiOSTests.swift */; };
 		2D120FC024FFF15200064C40 /* FoodPackiOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D120FBF24FFF15200064C40 /* FoodPackiOSUITests.swift */; };
 		2D120FD024FFF3EC00064C40 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D120FCF24FFF3EC00064C40 /* Restaurant.swift */; };
+		2D120FD224FFF68900064C40 /* RestaurantInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D120FD124FFF68800064C40 /* RestaurantInput.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		2D120FBF24FFF15200064C40 /* FoodPackiOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodPackiOSUITests.swift; sourceTree = "<group>"; };
 		2D120FC124FFF15200064C40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D120FCF24FFF3EC00064C40 /* Restaurant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
+		2D120FD124FFF68800064C40 /* RestaurantInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantInput.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				2D120FA124FFF15100064C40 /* ContentView.swift */,
 				2D120FA324FFF15200064C40 /* Assets.xcassets */,
 				2D120FCF24FFF3EC00064C40 /* Restaurant.swift */,
+				2D120FD124FFF68800064C40 /* RestaurantInput.swift */,
 				2D120FA824FFF15200064C40 /* LaunchScreen.storyboard */,
 				2D120FAB24FFF15200064C40 /* Info.plist */,
 				2D120FA524FFF15200064C40 /* Preview Content */,
@@ -272,6 +275,7 @@
 			files = (
 				2D120FD024FFF3EC00064C40 /* Restaurant.swift in Sources */,
 				2D120F9E24FFF15100064C40 /* AppDelegate.swift in Sources */,
+				2D120FD224FFF68900064C40 /* RestaurantInput.swift in Sources */,
 				2D120FA024FFF15100064C40 /* SceneDelegate.swift in Sources */,
 				2D120FA224FFF15100064C40 /* ContentView.swift in Sources */,
 			);
