@@ -13,10 +13,11 @@
 		2D120FA424FFF15200064C40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D120FA324FFF15200064C40 /* Assets.xcassets */; };
 		2D120FA724FFF15200064C40 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D120FA624FFF15200064C40 /* Preview Assets.xcassets */; };
 		2D120FAA24FFF15200064C40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D120FA824FFF15200064C40 /* LaunchScreen.storyboard */; };
-		2D120FB524FFF15200064C40 /* FoodPackiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D120FB424FFF15200064C40 /* FoodPackiOSTests.swift */; };
+		2D120FB524FFF15200064C40 /* RestaurantTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D120FB424FFF15200064C40 /* RestaurantTests.swift */; };
 		2D120FC024FFF15200064C40 /* FoodPackiOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D120FBF24FFF15200064C40 /* FoodPackiOSUITests.swift */; };
 		2D120FD024FFF3EC00064C40 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D120FCF24FFF3EC00064C40 /* Restaurant.swift */; };
 		2D120FD224FFF68900064C40 /* RestaurantInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D120FD124FFF68800064C40 /* RestaurantInput.swift */; };
+		2D120FD42500217300064C40 /* Test_Files in Resources */ = {isa = PBXBuildFile; fileRef = 2D120FD32500217300064C40 /* Test_Files */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,13 +47,14 @@
 		2D120FA924FFF15200064C40 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2D120FAB24FFF15200064C40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D120FB024FFF15200064C40 /* FoodPackiOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodPackiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D120FB424FFF15200064C40 /* FoodPackiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodPackiOSTests.swift; sourceTree = "<group>"; };
+		2D120FB424FFF15200064C40 /* RestaurantTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTests.swift; sourceTree = "<group>"; };
 		2D120FB624FFF15200064C40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D120FBB24FFF15200064C40 /* FoodPackiOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodPackiOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D120FBF24FFF15200064C40 /* FoodPackiOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodPackiOSUITests.swift; sourceTree = "<group>"; };
 		2D120FC124FFF15200064C40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D120FCF24FFF3EC00064C40 /* Restaurant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		2D120FD124FFF68800064C40 /* RestaurantInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantInput.swift; sourceTree = "<group>"; };
+		2D120FD32500217300064C40 /* Test_Files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Test_Files; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,8 +129,9 @@
 		2D120FB324FFF15200064C40 /* FoodPackiOSTests */ = {
 			isa = PBXGroup;
 			children = (
-				2D120FB424FFF15200064C40 /* FoodPackiOSTests.swift */,
+				2D120FB424FFF15200064C40 /* RestaurantTests.swift */,
 				2D120FB624FFF15200064C40 /* Info.plist */,
+				2D120FD32500217300064C40 /* Test_Files */,
 			);
 			path = FoodPackiOSTests;
 			sourceTree = "<group>";
@@ -256,6 +259,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D120FD42500217300064C40 /* Test_Files in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,7 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D120FB524FFF15200064C40 /* FoodPackiOSTests.swift in Sources */,
+				2D120FB524FFF15200064C40 /* RestaurantTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

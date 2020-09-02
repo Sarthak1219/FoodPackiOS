@@ -14,7 +14,7 @@ Uses Codable Protocol for JSON encoding/decoding
 Uses Equatable Protocol for unit testing.
 Used for Displaying Information to the Volunteer App User
 Maintains information about the Restaurant's ID, name, location: (address, lat/long), and pickuprequest: (pickup time, inventory message, voluteer message, and whether the restaurant is searching for a volunteer).
-Allows the is_ready state to be turned off once a volunteer accepts the request.
+Allows the user to see the is_ready state and turn it off once a volunteer accepts the request.
  */
 struct Restaurant: Codable, Equatable{
     
@@ -35,14 +35,21 @@ struct Restaurant: Codable, Equatable{
     /** Stores the Participating Restaurant's Message for the Volunteer. */
     let volunteer_message: String;
     /** Stores if the Participating Restaurant is ready for the Volunteer. 1 if yes, 0 if no (for compatibility with database). */
-    var is_ready: Int;
+    private var is_ready: Int;
+    
+    /**
+     Getter for is_ready Parameter. This is neccesary, because  is_ready is a private variable, which should only be changed when the turnOffIsReady method is called.
+     */
+    func getIsReady() -> Int{
+        return self.is_ready;
+    }
     
     /**
      Method  Changes the is_ready parameter once a volunteer accepts, so the restaurant is no longer visible in the search table of the app.
      */
     mutating func turnOffIsReady(){
-        if(is_ready == 1){
-            is_ready = 0;
+        if(self.is_ready == 1){
+            self.is_ready = 0;
         }
     }
     
