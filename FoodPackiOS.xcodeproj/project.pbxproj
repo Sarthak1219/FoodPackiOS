@@ -89,6 +89,7 @@
 				2D120FB324FFF15200064C40 /* FoodPackiOSTests */,
 				2D120FBE24FFF15200064C40 /* FoodPackiOSUITests */,
 				2D120F9B24FFF15100064C40 /* Products */,
+				2D120FD32500217300064C40 /* Test_Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -131,7 +132,6 @@
 			children = (
 				2D120FB424FFF15200064C40 /* RestaurantTests.swift */,
 				2D120FB624FFF15200064C40 /* Info.plist */,
-				2D120FD32500217300064C40 /* Test_Files */,
 			);
 			path = FoodPackiOSTests;
 			sourceTree = "<group>";
