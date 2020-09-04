@@ -19,7 +19,7 @@ class RestaurantInputTests: XCTestCase {
     let emptyfilename: String = "Test_Files/Test_Empty_Restaurant_Info";
     let incompletefilename: String = "Test_Files/Test_INC_Restaurant_Info";
     
-    let r0 = Restaurant(restaurant_ID:1,restaurant_name:"Ben's Barbeque",restaurant_address:"2730 Wolf Village Way, Raleigh, NC",latitude:35.787590,longitude:-78.685173,pickup_time:"2020-09-01 00:27:24",inventory_message:"Copy Inventory Here",volunteer_message:"Thanks for helping reduce food waste in our community!",is_ready:0);
+    let r0 = Restaurant(restaurant_ID:1,restaurant_name:"Ben's Barbeque",restaurant_address:"2109 Avent Ferry Rd, Raleigh, NC",latitude:35.779446,longitude:-78.675430,pickup_time:"2020-09-01 00:27:24",inventory_message:"Copy Inventory Here",volunteer_message:"Thanks for helping reduce food waste in our community!",is_ready:0);
     let r1 = Restaurant(restaurant_ID:2,restaurant_name:"Sharkie's Grill",restaurant_address:"2610 Cates Ave, Raleigh, NC",latitude:35.783875,longitude:-78.673126,pickup_time:"2020-09-02 14:48:03",inventory_message:"Copy Inventory Here",volunteer_message:"Thanks for helping reduce food waste in our community!",is_ready:0);
     
     override func setUp() {
