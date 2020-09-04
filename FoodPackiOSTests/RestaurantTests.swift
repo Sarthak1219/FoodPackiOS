@@ -36,7 +36,6 @@ class RestaurantTests: XCTestCase {
      Tests the Restaurant's Constructor; Testing for use in RestaurantInputTests class.
      */
     func testRestaurantConstructor() {
-        //r is let, because is_ready will not be changed
         let r = Restaurant(restaurant_ID: test_restaurant_ID, restaurant_name: test_restaurant_name, restaurant_address: test_restaurant_address, latitude: test_latitude, longitude: test_longitude, pickup_time: test_pickup_time, inventory_message: test_inventory_message, volunteer_message: test_volunteer_message, is_ready: 0);
         
         XCTAssertEqual(r.restaurant_ID, test_restaurant_ID);
@@ -55,11 +54,8 @@ class RestaurantTests: XCTestCase {
      Tests Restaurant's implementation of Equatable Protocol's method ==; Testing for use in RestaurantInputTests class.
      */
     func testequatablemethod(){
-        //r1 is let, because is_ready will not be changed
         let r1 = Restaurant(restaurant_ID: test_restaurant_ID, restaurant_name: test_restaurant_name, restaurant_address: test_restaurant_address, latitude: test_latitude, longitude: test_longitude, pickup_time: test_pickup_time, inventory_message: test_inventory_message, volunteer_message: test_volunteer_message, is_ready: 0);
-        //r2 is let, because is_ready will not be changed
         let r2 = Restaurant(restaurant_ID: test_restaurant_ID, restaurant_name: test_restaurant_name, restaurant_address: test_restaurant_address, latitude: test_latitude, longitude: test_longitude, pickup_time: test_pickup_time, inventory_message: test_inventory_message, volunteer_message: test_volunteer_message, is_ready: 0);
-        //r3 is let, because is_ready will not be changed
         let r3 = Restaurant(restaurant_ID: test_restaurant_ID, restaurant_name: test_restaurant_name, restaurant_address: test_restaurant_address, latitude: test_latitude, longitude: test_longitude, pickup_time: test_pickup_time, inventory_message: test_inventory_message, volunteer_message: test_volunteer_message, is_ready: 1);
         
         XCTAssertTrue(r1 == r2);
@@ -70,15 +66,14 @@ class RestaurantTests: XCTestCase {
      Tests Restaurant's turnOffIsReady Method.
      */
     func testTurnOffIsReady() {
-        //r1 is var, because is_ready may be changed
-        var r1 = Restaurant(restaurant_ID: test_restaurant_ID, restaurant_name: test_restaurant_name, restaurant_address: test_restaurant_address, latitude: test_latitude, longitude: test_longitude, pickup_time: test_pickup_time, inventory_message: test_inventory_message, volunteer_message: test_volunteer_message, is_ready: 1);
+        let r1 = Restaurant(restaurant_ID: test_restaurant_ID, restaurant_name: test_restaurant_name, restaurant_address: test_restaurant_address, latitude: test_latitude, longitude: test_longitude, pickup_time: test_pickup_time, inventory_message: test_inventory_message, volunteer_message: test_volunteer_message, is_ready: 1);
         
         r1.turnOffIsReady();
         XCTAssertEqual(r1.getIsReady(), 0);
         r1.turnOffIsReady();
         XCTAssertEqual(r1.getIsReady(), 0);
         
-        var r2 = Restaurant(restaurant_ID: test_restaurant_ID, restaurant_name: test_restaurant_name, restaurant_address: test_restaurant_address, latitude: test_latitude, longitude: test_longitude, pickup_time: test_pickup_time, inventory_message: test_inventory_message, volunteer_message: test_volunteer_message, is_ready: 0);
+        let r2 = Restaurant(restaurant_ID: test_restaurant_ID, restaurant_name: test_restaurant_name, restaurant_address: test_restaurant_address, latitude: test_latitude, longitude: test_longitude, pickup_time: test_pickup_time, inventory_message: test_inventory_message, volunteer_message: test_volunteer_message, is_ready: 0);
         
         r2.turnOffIsReady();
         XCTAssertEqual(r2.getIsReady(), 0);

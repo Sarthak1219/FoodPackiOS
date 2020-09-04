@@ -9,14 +9,14 @@
 import Foundation
 
 /**
-Restaurant Struct describes a Restaurant participating in the FoodPack Program.
+Restaurant Class describes a Restaurant participating in the FoodPack Program.
 Uses Codable Protocol for JSON encoding/decoding
 Uses Equatable Protocol for unit testing.
 Used for Displaying Information to the Volunteer App User
 Maintains information about the Restaurant's ID, name, location: (address, lat/long), and pickuprequest: (pickup time, inventory message, voluteer message, and whether the restaurant is searching for a volunteer).
 Allows the user to see the is_ready state and turn it off once a volunteer accepts the request.
  */
-struct Restaurant: Codable, Equatable{
+class Restaurant: Codable, Equatable{
     
     /** Stores the Participating Restaurant's ID. */
     let restaurant_ID: Int;
@@ -47,7 +47,7 @@ struct Restaurant: Codable, Equatable{
     /**
      Method  Changes the is_ready parameter once a volunteer accepts, so the restaurant is no longer visible in the search table of the app.
      */
-    mutating func turnOffIsReady(){
+    func turnOffIsReady(){
         if(self.is_ready == 1){
             self.is_ready = 0;
         }
