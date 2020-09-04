@@ -56,7 +56,8 @@ class RestaurantInput{
      If the data cannot be decode into an array of type Restaurant, an RestaurantInputError.decodeError will be thrown
      */
     static func parseJSON(JSONData: Data?) throws -> [Restaurant]{
-        if(JSONData == nil){
+        //if the data is null, statement evaluates to true automatically
+        if(JSONData?.isEmpty ?? true){
             throw RestaurantInputError.dataIsEmpty;
         }
         
