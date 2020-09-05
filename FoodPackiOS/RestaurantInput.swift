@@ -25,6 +25,22 @@ enum RestaurantInputError: Error{
  */
 class RestaurantInput{
     
+    
+    /**
+     RestaurantInput Method combines readLocalFile() and parseJSON methods
+     If an error is thrown by either of the two methods, an empty array of type restaurants is returned.
+     */
+    static func parseJSONfromLocalFile(filename: String) -> [Restaurant]{
+        do{
+            let JSONData = try RestaurantInput.readLocalFile(filename: filename);
+            let restaurants = try RestaurantInput.parseJSON(JSONData: JSONData);
+            return restaurants;
+        }
+        catch{
+            return [Restaurant]();
+        }
+    }
+    
     /**
      RestauratInput Method readLocalFile returns data from given filename
      If the file is not found, an RestaurantInputError.fileNotFound will be thrown
