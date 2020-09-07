@@ -20,24 +20,25 @@ enum RestaurantInputError: Error{
 
 /**
  Class RestaurantInput Describes Input for FoodPack Application
+ Uses ObservableOject Protocol and @published so views auto update with changes in a restaurant in the list from the database
  Used for getting restaurant data from JSON sources.
  Allows data to be read in from a local file or database, and data to be parsed to an array of type Restaurant.
  */
-class RestaurantInput{
+class RestaurantInput: ObservableObject{
     
+    @Published var restaurants: [Restaurant];
     
     /**
-     RestaurantInput Method combines readLocalFile() and parseJSON methods
-     If an error is thrown by either of the two methods, an empty array of type restaurants is returned.
+     Initializer for input given local file for testing.
      */
-    static func parseJSONfromLocalFile(filename: String) -> [Restaurant]{
+    init(filename: String) {
         do{
             let JSONData = try RestaurantInput.readLocalFile(filename: filename);
             let restaurants = try RestaurantInput.parseJSON(JSONData: JSONData);
-            return restaurants;
+            self.restaurants = restaurants;
         }
         catch{
-            return [Restaurant]();
+            self.restaurants = [];
         }
     }
     

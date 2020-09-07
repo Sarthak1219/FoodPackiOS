@@ -35,9 +35,9 @@ struct RestaurantRowView: View {
 
 struct RestaurantRowView_Previews: PreviewProvider {
     
-    static let restaurants = RestaurantInput.parseJSONfromLocalFile(filename: validfilename)
+    static var source = RestaurantInput(filename: testfilename);
     
     static var previews: some View {
-        RestaurantRowView(restaurant: restaurants[1])
+        RestaurantRowView(restaurant: source.restaurants[1])
     }
 }

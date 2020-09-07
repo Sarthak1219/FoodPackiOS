@@ -20,12 +20,12 @@ struct RestaurantDetailView: View {
     }
 }
 
-struct RestaurantDetailView_Previews: PreviewProvider {
-    
-    //static let restaurants = RestaurantInput.parseJSONfromLocalFile(filename: validfilename)
-    
-    static var previews: some View {
-        RestaurantDetailView()
-        //RestaurantDetailView(restaurant: restaurants[0])
-    }
-}
+//struct RestaurantDetailView_Previews: PreviewProvider {
+//    
+//    static let restaurants = RestaurantInput.parseJSONfromLocalFile(filename: validfilename)
+//    
+//    static var previews: some View {
+//        RestaurantDetailView()
+//        RestaurantDetailView(restaurant: restaurants[0])
+//    }
+//}

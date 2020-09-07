@@ -31,9 +31,13 @@ class RestaurantInputTests: XCTestCase {
     }
     
     /**
-     Test's RestaurantInput's parseJSON Method with a valid LocalFile
+     Test's RestaurantInput's constructor and parseJSON Method with a valid LocalFile
      */
     func testParseJSONfromLocalFile_valid() {
+        
+        let source = RestaurantInput(filename: validfilename);
+        XCTAssertEqual(source.restaurants.endIndex, 2);
+        
         XCTAssertNoThrow(try RestaurantInput.readLocalFile(filename: validfilename));
         
         do{
@@ -48,9 +52,18 @@ class RestaurantInputTests: XCTestCase {
     }
     
     /**
-     Test's RestaurantInput's parseJSON Method with invalid LocalFiles
+     Test's RestaurantInput's constructor and parseJSON Method with invalid LocalFiles
      */
     func testParseJSONfromLocalFile_invalid() {
+        
+        let source1 = RestaurantInput(filename: DNEfilename);
+        XCTAssertEqual(source1.restaurants.isEmpty, true);
+        
+        let source2 = RestaurantInput(filename: emptyfilename);
+        XCTAssertEqual(source2.restaurants.isEmpty, true);
+        
+        let source3 = RestaurantInput(filename: incompletefilename);
+        XCTAssertEqual(source3.restaurants.isEmpty, true);
         
         //file DNE
         do{

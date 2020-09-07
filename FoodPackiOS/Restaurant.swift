@@ -12,11 +12,12 @@ import Foundation
 Restaurant Class describes a Restaurant participating in the FoodPack Program.
 Uses Codable Protocol for JSON encoding/decoding
 Uses Equatable Protocol for Unit Testing.
+Uses ObservableOject Protocol and @published so views auto update when is_ready gets turned off
 Used for Displaying Information to the Volunteer App User
 Maintains information about the Restaurant's ID, name, location: (address, lat/long), and pickuprequest: (pickup time, inventory message, voluteer message, and whether the restaurant is searching for a volunteer).
 Allows the user to see the is_ready state and turn it off once a volunteer accepts the request.
  */
-class Restaurant: Codable, Equatable{
+class Restaurant: Codable, Equatable, ObservableObject{
     
     /** Stores the Participating Restaurant's ID. */
     let restaurant_ID: Int;
@@ -35,22 +36,14 @@ class Restaurant: Codable, Equatable{
     /** Stores the Participating Restaurant's Message for the Volunteer. */
     let volunteer_message: String;
     /** Stores if the Participating Restaurant is ready for the Volunteer. 1 if yes, 0 if no (for compatibility with database). */
-    private var is_ready: Int;
+    @Published private var is_ready: Int;//make published!!
     
     /**
-     Getter for is_ready Parameter. This is neccesary, because  is_ready is a private variable, which should only be changed when the turnOffIsReady method is called.
+     Because Codable and ObservableObject Protocols dont like each other, doing this is required :(
+     Enum of keys in JSON files used
      */
-    func getIsReady() -> Int{
-        return self.is_ready;
-    }
-    
-    /**
-     Method  Changes the is_ready parameter once a volunteer accepts, so the restaurant is no longer visible in the search table of the app.
-     */
-    func turnOffIsReady(){
-        if(self.is_ready == 1){
-            self.is_ready = 0;
-        }
+    enum CodingKeys: CodingKey{
+        case restaurant_ID, restaurant_name, restaurant_address, latitude, longitude, pickup_time, inventory_message, volunteer_message, is_ready;
     }
     
     /**
@@ -75,6 +68,58 @@ class Restaurant: Codable, Equatable{
         self.inventory_message = inventory_message;
         self.volunteer_message = volunteer_message;
         self.is_ready = is_ready;
+    }
+    
+    /**
+    Because Codable and ObservableObject Protocols dont like each other, doing this is required :(
+    Used when RestaurantInput decodes restaurants from given JSON source.
+    */
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self);
+        
+        restaurant_ID = try container.decode(Int.self, forKey: .restaurant_ID);
+        restaurant_name = try container.decode(String.self, forKey: .restaurant_name);
+        restaurant_address = try container.decode(String.self, forKey: .restaurant_address);
+        latitude = try container.decode(Float32.self, forKey: .latitude);
+        longitude = try container.decode(Float32.self, forKey: .longitude);
+        pickup_time = try container.decode(String.self, forKey: .pickup_time);
+        inventory_message = try container.decode(String.self, forKey: .inventory_message);
+        volunteer_message = try container.decode(String.self, forKey: .volunteer_message);
+        is_ready = try container.decode(Int.self, forKey: .is_ready);
+    }
+    
+    /**
+     Because Codable and ObservableObject Protocols dont like each other, doing this is required :(
+     Used to encode restaurant to JSON to be sent to database.
+     */
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self);
+
+        try container.encode(restaurant_ID, forKey: .restaurant_ID);
+        try container.encode(restaurant_name, forKey: .restaurant_name);
+        try container.encode(restaurant_address, forKey: .restaurant_address);
+        try container.encode(latitude, forKey: .latitude);
+        try container.encode(longitude, forKey: .longitude);
+        try container.encode(pickup_time, forKey: .pickup_time);
+        try container.encode(inventory_message, forKey: .inventory_message);
+        try container.encode(volunteer_message, forKey: .volunteer_message);
+        try container.encode(is_ready, forKey: .is_ready);
+    }
+    
+    /**
+     Getter for is_ready Parameter. This is neccesary, because  is_ready is a private variable, which should only be changed when the turnOffIsReady method is called.
+     */
+    func getIsReady() -> Int{
+        return self.is_ready;
+    }
+    
+    /**
+     Method  Changes the is_ready parameter once a volunteer accepts, so the restaurant is no longer visible in the search table of the app.
+     */
+    func turnOffIsReady(){
+        if(self.is_ready == 1){
+            self.is_ready = 0;
+        }
     }
     
     /**

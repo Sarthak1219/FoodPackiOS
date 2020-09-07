@@ -11,7 +11,7 @@ import SwiftUI
 /**
  Global Filename Variable for ContentView and all Subviews' previews.
  */
-let validfilename: String = "Test_Files/Test_Restaurant_Info";
+let testfilename: String = "Test_Files/Test_Restaurant_Info";
 
 /**
  ContentView is home page for app.
@@ -20,13 +20,13 @@ let validfilename: String = "Test_Files/Test_Restaurant_Info";
  */
 struct ContentView: View {
     
-    let restaurants = RestaurantInput.parseJSONfromLocalFile(filename: validfilename);
+    var source = RestaurantInput(filename: testfilename);
     
     var body: some View {
         //add map overview (later for funsies)
         NavigationView {
             List {
-                ForEach(restaurants, id: \.restaurant_ID) { restaurant in
+                ForEach(source.restaurants, id: \.restaurant_ID) { restaurant in
                     RestaurantRowView(restaurant: restaurant);
                 }
             }
