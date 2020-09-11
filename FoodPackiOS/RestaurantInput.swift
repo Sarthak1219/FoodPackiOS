@@ -62,9 +62,24 @@ class RestaurantInput: ObservableObject{
         }
     }
     
-    
-    static func readDataBaseTable(){
-    //TODO
+    /**
+     RestauratInput Method readLocalFile returns data from php script that returns all restaurant_info in JSON
+     If the script is not found, an RestaurantInputError.fileNotFound will be thrown
+     If data cannot be retreived from the Url, an RestaurantInputError.cannotGetDataFromFileUrl will be thrown
+     */
+    static func readDataBaseTable() throws -> Data?{
+    //TODO!!
+        guard let urlPath = URL(string: "localhost/foodpackscripts/SelectAllRestaurants.php") else {
+            throw RestaurantInputError.fileNotFound;
+        }
+        
+        let request = URLRequest(url: urlPath);
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            
+        }.resume()
+        
+        return nil;
     }
     
     /**

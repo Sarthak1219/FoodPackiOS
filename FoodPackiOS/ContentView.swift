@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Combine
 
 /**
  Global Filename Variable for ContentView and all Subviews' previews.
@@ -20,7 +21,7 @@ let testfilename: String = "Test_Files/Test_Restaurant_Info";
  */
 struct ContentView: View {
     
-    var source = RestaurantInput(filename: testfilename);
+    @ObservedObject var source = RestaurantInput(filename: testfilename);
     
     var body: some View {
         //add map overview (later for funsies)
