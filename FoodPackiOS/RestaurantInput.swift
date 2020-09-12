@@ -26,7 +26,29 @@ enum RestaurantInputError: Error{
  */
 class RestaurantInput: ObservableObject{
     
+    /**
+     Array of restaurants; @published allows UI to auto update when list changes/is refreshed.
+     */
     @Published var restaurants: [Restaurant];
+    /**
+     Final path of script.
+     */
+    static let scriptname = "http://localhost/foodpackscripts/SelectAllRestaurants.php";
+    
+    /**
+     Initializer for input using default final path for script.
+     */
+    convenience init() {
+        self.init(scriptname: RestaurantInput.scriptname);
+    }
+    
+    /**
+     Initializer for input given script for testing.
+     */
+    init(scriptname: String) {
+        self.restaurants = [];
+        readDataBaseTable(script: scriptname);
+    }
     
     /**
      Initializer for input given local file for testing.
@@ -41,6 +63,71 @@ class RestaurantInput: ObservableObject{
             self.restaurants = [];
         }
     }
+    
+    /**
+     RestauratInput Method readDataBaseTable stores data from php script -that returns all restaurant_info in JSON- in result completion success case.
+     If the script is not found, an RestaurantInputError.fileNotFound will be printed
+     If data cannot be retreived from the Url, the method will return without setting restaurants.
+     URLSession.shared.dataTask does not allow errors to be thrown, and Result didnt work, so no other throwing errors :(
+     */
+    func readDataBaseTable(script: String) {
+        guard let url = URL(string: script) else {
+            print(RestaurantInputError.fileNotFound.localizedDescription);
+            return;
+        }
+
+        let request = URLRequest(url: url);
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if(error == nil){
+                do{
+                    let restaurants = try RestaurantInput.parseJSON(JSONData: data);
+                    DispatchQueue.main.async {
+                        self.restaurants = restaurants;
+                    }
+                    return;
+                }
+                catch{
+                    //error cannot be dataisEmpty, because error is nil, so data not empty
+                    //error is decode error
+                    return;
+                }
+            }
+            print(error!.localizedDescription);
+        }.resume()
+    }
+    
+//        /**
+//         RestauratInput Method readDataBaseTable stores data from php script -that returns all restaurant_info in JSON- in result completion success case.
+//         If the script is not found, an RestaurantInputError.fileNotFound will be stored in the result completion failure case.
+//         If data cannot be retreived from the Url, an RestaurantInputError.cannotGetDataFromFileUrl will be stored in the result completion failure case.
+//         Result completion is necessary, because URLSession.shared.dataTask does not allow errors to be thrown.
+//         */
+//        func readDataBaseTable(script: String, completion: @escaping (Result<[Restaurant], RestaurantInputError>) -> Void) {
+//            let url = URL(string: script);
+//            if(url == nil){
+//                completion(.failure(RestaurantInputError.fileNotFound));
+//                return;
+//            }
+//
+//            let request = URLRequest(url: url!);
+//
+//            URLSession.shared.dataTask(with: request) { data, response, error in
+//                if(error == nil){
+//                    do{
+//                        let restaurants = try RestaurantInput.parseJSON(JSONData: data);
+//                        completion(.success(restaurants));
+//                        return;
+//                    }
+//                    catch{
+//                        //error cannot be dataisEmpty, because error is nil, so data not empty
+//                        completion(.failure(RestaurantInputError.decodeError));
+//                        return;
+//                    }
+//                }
+//                completion(.failure(RestaurantInputError.cannotGetDataFromFileUrl));
+//            }.resume()
+//        }
     
     /**
      RestauratInput Method readLocalFile returns data from given filename
@@ -60,26 +147,6 @@ class RestaurantInput: ObservableObject{
         } catch {
             throw RestaurantInputError.cannotGetDataFromFileUrl;
         }
-    }
-    
-    /**
-     RestauratInput Method readLocalFile returns data from php script that returns all restaurant_info in JSON
-     If the script is not found, an RestaurantInputError.fileNotFound will be thrown
-     If data cannot be retreived from the Url, an RestaurantInputError.cannotGetDataFromFileUrl will be thrown
-     */
-    static func readDataBaseTable() throws -> Data?{
-    //TODO!!
-        guard let urlPath = URL(string: "localhost/foodpackscripts/SelectAllRestaurants.php") else {
-            throw RestaurantInputError.fileNotFound;
-        }
-        
-        let request = URLRequest(url: urlPath);
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            
-        }.resume()
-        
-        return nil;
     }
     
     /**

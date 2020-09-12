@@ -31,11 +31,11 @@ struct SingleRestaurantMapView: UIViewRepresentable {
     }
 }
 
-//struct SingleRestaurantMapView_Previews: PreviewProvider {
-//    
-//    static let restaurants = RestaurantInput.parseJSONfromLocalFile(filename: filename)
-//    
-//    static var previews: some View {
-//        SingleRestaurantMapView(restaurant: restaurants[0])
-//    }
-//}
+struct SingleRestaurantMapView_Previews: PreviewProvider {
+    
+    static var source = RestaurantInput(filename: testfilename);
+    
+    static var previews: some View {
+        SingleRestaurantMapView(restaurant: source.restaurants[1])
+    }
+}

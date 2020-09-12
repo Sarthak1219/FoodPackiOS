@@ -15,17 +15,19 @@ import SwiftUI
  */
 struct RestaurantDetailView: View {
     
+    var restaurant: Restaurant;
+    
     var body: some View{
-        Text("Hello World!")
+        //Text("Hello World!")
+        SingleRestaurantMapView(restaurant: restaurant).frame(height: 300)
     }
 }
 
-//struct RestaurantDetailView_Previews: PreviewProvider {
-//    
-//    static let restaurants = RestaurantInput.parseJSONfromLocalFile(filename: validfilename)
-//    
-//    static var previews: some View {
-//        RestaurantDetailView()
-//        RestaurantDetailView(restaurant: restaurants[0])
-//    }
-//}
+struct RestaurantDetailView_Previews: PreviewProvider {
+    
+    static var source = RestaurantInput(filename: testfilename);
+    
+    static var previews: some View {
+        RestaurantDetailView(restaurant: source.restaurants[1])
+    }
+}

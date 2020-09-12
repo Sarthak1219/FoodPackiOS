@@ -12,13 +12,19 @@ import SwiftUI
  Show all Restuarant details, including inventory message, volunteer message, and button to accept request.
  */
 struct FullRestaurantInfoView: View {
+    
+     var restaurant: Restaurant;
+    
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 struct FullRestaurantInfoView_Previews: PreviewProvider {
+    
+    static var source = RestaurantInput(filename: testfilename);
+    
     static var previews: some View {
-        FullRestaurantInfoView()
+        FullRestaurantInfoView(restaurant: source.restaurants[0])
     }
 }

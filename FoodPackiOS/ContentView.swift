@@ -22,17 +22,27 @@ let testfilename: String = "Test_Files/Test_Restaurant_Info";
 struct ContentView: View {
     
     @ObservedObject var source = RestaurantInput(filename: testfilename);
+    //@ObservedObject var source = RestaurantInput();
     
     var body: some View {
         //add map overview (later for funsies)
         NavigationView {
             List {
                 ForEach(source.restaurants, id: \.restaurant_ID) { restaurant in
-                    RestaurantRowView(restaurant: restaurant);
+                    //group needed to use conditional
+                    Group{
+                        if(restaurant.getIsReady() == 1){
+                            NavigationLink(destination: RestaurantDetailView(restaurant: restaurant)){
+                                RestaurantRowView(restaurant: restaurant);
+                            }
+                        }
+                        else{
+                            RestaurantRowView(restaurant: restaurant);
+                        }
+                    }
                 }
             }
             .navigationBarTitle("Restaurants")
-    
         }
     }
 }

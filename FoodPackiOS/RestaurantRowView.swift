@@ -17,15 +17,18 @@ struct RestaurantRowView: View {
     
     var body: some View {
         VStack(alignment: .leading){
-            Text(restaurant.restaurant_name) .font(.largeTitle).fontWeight(.semibold).foregroundColor(Color.red).padding(.leading)
+            if(restaurant.getIsReady() == 1){
+                Text(restaurant.restaurant_name) .font(.largeTitle).fontWeight(.semibold).foregroundColor(Color.red).padding(.leading)
+            }
+            else{
+                Text(restaurant.restaurant_name) .font(.largeTitle).fontWeight(.semibold).foregroundColor(Color.gray).padding(.leading)
+            }
             HStack {
                 Text(restaurant.restaurant_address) .font(.headline).multilineTextAlignment(.center).lineLimit(2).padding(.leading).frame(width: 200)
                 Spacer()
-                Text(restaurant.pickup_time)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(2)
-                    .padding(.trailing, 30.0)
-                    .frame(width: 150)
+                if(restaurant.getIsReady() == 1){
+                    Text(restaurant.pickup_time).multilineTextAlignment(.center).lineLimit(2).padding(.trailing, 30.0).frame(width: 150)
+                }
                     
             }
         }
