@@ -13,7 +13,7 @@ import SwiftUI
  */
 struct RestaurantRowView: View {
     
-    var restaurant: Restaurant;
+    @ObservedObject var restaurant: Restaurant;
     
     var body: some View {
         VStack(alignment: .leading){

@@ -15,11 +15,18 @@ import SwiftUI
  */
 struct RestaurantDetailView: View {
     
-    var restaurant: Restaurant;
+    @ObservedObject var restaurant: Restaurant;
+    private let screenheight = UIScreen.main.bounds.size.height;
     
     var body: some View{
         //Text("Hello World!")
-        SingleRestaurantMapView(restaurant: restaurant).frame(height: 300)
+        VStack {
+            SingleRestaurantMapView(restaurant: restaurant)
+                .padding(.bottom, screenheight/3)
+                .edgesIgnoringSafeArea(.top)
+            FullRestaurantInfoView(restaurant: restaurant)
+                .padding(.top, -screenheight/3)
+        }
     }
 }
 

@@ -13,6 +13,10 @@ import Combine
  Global Filename Variable for ContentView and all Subviews' previews.
  */
 let testfilename: String = "Test_Files/Test_Restaurant_Info";
+/**
+Global Filename Variable for initializing empty list.
+*/
+let emptyfilename: String = "Test_Files/Test_Empty_Restaurant_Info";
 
 /**
  ContentView is home page for app.
@@ -20,12 +24,16 @@ let testfilename: String = "Test_Files/Test_Restaurant_Info";
  Calls subview RestaurantRowView in list.
  */
 struct ContentView: View {
-    
-    @ObservedObject var source = RestaurantInput(filename: testfilename);
+    /**
+     Bindable boolean showError is used for displaying an alert if the restuarant array is empty (error occured when fetching data)
+     */
+    @State private var showError = false;
     //@ObservedObject var source = RestaurantInput();
+    @ObservedObject var source = RestaurantInput(filename: testfilename);
     
     var body: some View {
         //add map overview (later for funsies)
+        
         NavigationView {
             List {
                 ForEach(source.restaurants, id: \.restaurant_ID) { restaurant in
@@ -43,6 +51,15 @@ struct ContentView: View {
                 }
             }
             .navigationBarTitle("Restaurants")
+            .onAppear{
+                //self.source.readDataBaseTable(script: RestaurantInput.scriptname);
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                     self.showError = self.source.restaurants.isEmpty;
+                }
+            }
+            .alert(isPresented: $showError){
+                Alert(title: Text("Error!"), message: Text("Unexcepted Error loading restaurants. Please Check your internet connection and try again :("));
+            }
         }
     }
 }

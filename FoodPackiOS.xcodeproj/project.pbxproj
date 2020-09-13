@@ -118,11 +118,7 @@
 			children = (
 				2D120F9D24FFF15100064C40 /* AppDelegate.swift */,
 				2D120F9F24FFF15100064C40 /* SceneDelegate.swift */,
-				2D120FA124FFF15100064C40 /* ContentView.swift */,
-				2D1005462503F80200FA4B5D /* RestaurantRowView.swift */,
-				2D10054825040DB500FA4B5D /* RestaurantDetailView.swift */,
-				2D10054A250414EA00FA4B5D /* SingleRestaurantMapView.swift */,
-				2D10054C2504185400FA4B5D /* FullRestaurantInfoView.swift */,
+				2D69BA23250E96B3003E8F83 /* Views */,
 				2D120FA324FFF15200064C40 /* Assets.xcassets */,
 				2D120FCF24FFF3EC00064C40 /* Restaurant.swift */,
 				2D120FD124FFF68800064C40 /* RestaurantInput.swift */,
@@ -159,6 +155,18 @@
 				2D120FC124FFF15200064C40 /* Info.plist */,
 			);
 			path = FoodPackiOSUITests;
+			sourceTree = "<group>";
+		};
+		2D69BA23250E96B3003E8F83 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2D120FA124FFF15100064C40 /* ContentView.swift */,
+				2D1005462503F80200FA4B5D /* RestaurantRowView.swift */,
+				2D10054825040DB500FA4B5D /* RestaurantDetailView.swift */,
+				2D10054A250414EA00FA4B5D /* SingleRestaurantMapView.swift */,
+				2D10054C2504185400FA4B5D /* FullRestaurantInfoView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -20,7 +20,7 @@ enum RestaurantInputError: Error{
 
 /**
  Class RestaurantInput Describes Input for FoodPack Application
- Uses ObservableOject Protocol and @published so views auto update with changes in a restaurant in the list from the database
+ Uses ObservableObject Protocol and @published so views auto update with changes in a restaurant in the list from the database
  Used for getting restaurant data from JSON sources.
  Allows data to be read in from a local file or database, and data to be parsed to an array of type Restaurant.
  */
@@ -71,6 +71,7 @@ class RestaurantInput: ObservableObject{
      URLSession.shared.dataTask does not allow errors to be thrown, and Result didnt work, so no other throwing errors :(
      */
     func readDataBaseTable(script: String) {
+        self.restaurants = [];
         guard let url = URL(string: script) else {
             print(RestaurantInputError.fileNotFound.localizedDescription);
             return;
@@ -78,7 +79,10 @@ class RestaurantInput: ObservableObject{
 
         let request = URLRequest(url: url);
 
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        let config = URLSessionConfiguration.default;
+        config.waitsForConnectivity = true;
+        
+        URLSession(configuration: config).dataTask(with: request) { data, response, error in
             if(error == nil){
                 do{
                     let restaurants = try RestaurantInput.parseJSON(JSONData: data);

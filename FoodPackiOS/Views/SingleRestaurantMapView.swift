@@ -15,10 +15,10 @@ import MapKit
  */
 struct SingleRestaurantMapView: UIViewRepresentable {
     
-    var restaurant: Restaurant;
+   @ObservedObject var restaurant: Restaurant;
     
     func makeUIView(context: Context) -> MKMapView {
-        MKMapView(frame: .zero)
+        MKMapView()
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
@@ -28,6 +28,11 @@ struct SingleRestaurantMapView: UIViewRepresentable {
         let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
         let region = MKCoordinateRegion(center: coordinate, span: span)
         uiView.setRegion(region, animated: true)
+        
+        let restaurantpin = MKPointAnnotation()
+        restaurantpin.title = restaurant.restaurant_name
+        restaurantpin.coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(restaurant.latitude), longitude: CLLocationDegrees(restaurant.longitude))
+        uiView.addAnnotation(restaurantpin)
     }
 }
 
