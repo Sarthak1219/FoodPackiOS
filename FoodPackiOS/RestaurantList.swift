@@ -20,10 +20,10 @@ class RestaurantList: ObservableObject {
     
     /**
      Initializer for RestaurantList given scriptname
-     Uses RestaurantInput's readLocalFile and parseJSON methods.
+     Uses RestaurantInput's readDataBaseTable and parseJSON methods.
      */
     init(scriptname: String){
-        self.restaurants = [];
+        self.restaurants = [];//needed so self.restaurants can be set in completion of readDataBaseTable method
         RestaurantInput.readDataBaseTable(script: RestaurantInput.scriptname){ result in
             do{
                 let JSONData = try result.get();//only works if the result has a success case

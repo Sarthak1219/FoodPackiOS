@@ -26,14 +26,12 @@ class RestaurantInputTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    //TODO add method to test data retrieval from database
+    //TODO add tests for getting data from database
     
     /**
      Test's RestaurantInput's constructor and parseJSON Method with a valid LocalFile
      */
     func testParseJSONfromLocalFile_valid() {
-        XCTAssertNoThrow(try RestaurantInput.readLocalFile(filename: RestaurantInput.testfilename));
-        
         do{
             let JSONData = try RestaurantInput.readLocalFile(filename: RestaurantInput.testfilename);
             _ = try RestaurantInput.parseJSON(JSONData: JSONData);
