@@ -27,7 +27,6 @@ struct FullRestaurantInfoView: View {
                 .multilineTextAlignment(.center)
             Button(action: {
                 self.restaurant.turnOffIsReady()
-                print(self.restaurant.getIsReady())
                 //add updates to database
                 //open maps
             }) {
@@ -50,9 +49,9 @@ struct FullRestaurantInfoView: View {
 
 struct FullRestaurantInfoView_Previews: PreviewProvider {
     
-    static var source = RestaurantInput(filename: testfilename);
+    static var restaurantList = RestaurantList(filename: RestaurantInput.testfilename);
     
     static var previews: some View {
-        FullRestaurantInfoView(restaurant: source.restaurants[0])
+        FullRestaurantInfoView(restaurant: restaurantList.restaurants[1])
     }
 }

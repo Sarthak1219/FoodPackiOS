@@ -38,9 +38,9 @@ struct RestaurantRowView: View {
 
 struct RestaurantRowView_Previews: PreviewProvider {
     
-    static var source = RestaurantInput(filename: testfilename);
+    static var restaurantList = RestaurantList(filename: RestaurantInput.testfilename);
     
     static var previews: some View {
-        RestaurantRowView(restaurant: source.restaurants[1])
+        RestaurantRowView(restaurant: restaurantList.restaurants[1])
     }
 }

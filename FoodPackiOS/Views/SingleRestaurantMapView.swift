@@ -38,9 +38,9 @@ struct SingleRestaurantMapView: UIViewRepresentable {
 
 struct SingleRestaurantMapView_Previews: PreviewProvider {
     
-    static var source = RestaurantInput(filename: testfilename);
+    static var restaurantList = RestaurantList(filename: RestaurantInput.testfilename);
     
     static var previews: some View {
-        SingleRestaurantMapView(restaurant: source.restaurants[1])
+        SingleRestaurantMapView(restaurant: restaurantList.restaurants[1])
     }
 }

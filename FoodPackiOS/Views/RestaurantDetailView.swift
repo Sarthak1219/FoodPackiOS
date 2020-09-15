@@ -26,15 +26,16 @@ struct RestaurantDetailView: View {
                 .edgesIgnoringSafeArea(.top)
             FullRestaurantInfoView(restaurant: restaurant)
                 .padding(.top, -screenheight/3)
+            Text(String(restaurant.getIsReady()))
         }
     }
 }
 
 struct RestaurantDetailView_Previews: PreviewProvider {
     
-    static var source = RestaurantInput(filename: testfilename);
+    static var restaurantList = RestaurantList(filename: RestaurantInput.testfilename);
     
     static var previews: some View {
-        RestaurantDetailView(restaurant: source.restaurants[1])
+        RestaurantDetailView(restaurant: restaurantList.restaurants[1])
     }
 }

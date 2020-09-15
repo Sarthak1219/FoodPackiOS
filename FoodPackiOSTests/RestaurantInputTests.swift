@@ -14,13 +14,9 @@ RestaurantInputTests class provides unit tests for RestaurantInput methods.
 */
 class RestaurantInputTests: XCTestCase {
 
-    let validfilename: String = "Test_Files/Test_Restaurant_Info";
+    //other filenames declared in RestaurantInput
     let DNEfilename: String = "Test_Files/Test_Nowhere_Restaurant_Info";
-    let emptyfilename: String = "Test_Files/Test_Empty_Restaurant_Info";
     let incompletefilename: String = "Test_Files/Test_INC_Restaurant_Info";
-    
-    let r0 = Restaurant(restaurant_ID:1,restaurant_name:"Ben's Barbeque",restaurant_address:"2109 Avent Ferry Rd, Raleigh, NC",latitude:35.779446,longitude:-78.67543,pickup_time:"2020-09-03 20:30:26",inventory_message:"Copy Inventory Here",volunteer_message:"Thanks for helping reduce food waste in our community!",is_ready:0);
-    let r1 = Restaurant(restaurant_ID:2,restaurant_name:"Sharkie's Grill",restaurant_address:"2610 Cates Ave, Raleigh, NC",latitude:35.783875,longitude:-78.673126,pickup_time:"2020-09-02 14:48:03",inventory_message:"Copy Inventory Here",volunteer_message:"Thanks for helping reduce food waste in our community!",is_ready:1);
     
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -30,21 +26,17 @@ class RestaurantInputTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    //TODO add method to test data retrieval from database
+    
     /**
      Test's RestaurantInput's constructor and parseJSON Method with a valid LocalFile
      */
     func testParseJSONfromLocalFile_valid() {
-        
-        let source = RestaurantInput(filename: validfilename);
-        XCTAssertEqual(source.restaurants.endIndex, 2);
-        
-        XCTAssertNoThrow(try RestaurantInput.readLocalFile(filename: validfilename));
+        XCTAssertNoThrow(try RestaurantInput.readLocalFile(filename: RestaurantInput.testfilename));
         
         do{
-            let JSONData = try RestaurantInput.readLocalFile(filename: validfilename);
-            let restaurants = try RestaurantInput.parseJSON(JSONData: JSONData);
-            XCTAssertEqual(restaurants[0], r0);
-            XCTAssertEqual(restaurants[1], r1);
+            let JSONData = try RestaurantInput.readLocalFile(filename: RestaurantInput.testfilename);
+            _ = try RestaurantInput.parseJSON(JSONData: JSONData);
         }
         catch{
             XCTFail("Error Thrown for Valid File");
@@ -55,15 +47,6 @@ class RestaurantInputTests: XCTestCase {
      Test's RestaurantInput's constructor and parseJSON Method with invalid LocalFiles
      */
     func testParseJSONfromLocalFile_invalid() {
-        
-        let source1 = RestaurantInput(filename: DNEfilename);
-        XCTAssertEqual(source1.restaurants.isEmpty, true);
-        
-        let source2 = RestaurantInput(filename: emptyfilename);
-        XCTAssertEqual(source2.restaurants.isEmpty, true);
-        
-        let source3 = RestaurantInput(filename: incompletefilename);
-        XCTAssertEqual(source3.restaurants.isEmpty, true);
         
         //file DNE
         do{
@@ -77,7 +60,7 @@ class RestaurantInputTests: XCTestCase {
         
         //file is empty
         do{
-            let JSONData = try RestaurantInput.readLocalFile(filename: emptyfilename);
+            let JSONData = try RestaurantInput.readLocalFile(filename: RestaurantInput.emptyfilename);
             //underscore means no name; only checking what happens with method call
             _ = try RestaurantInput.parseJSON(JSONData: JSONData);
             XCTFail("No error was thrown when the Data given was empty.");
