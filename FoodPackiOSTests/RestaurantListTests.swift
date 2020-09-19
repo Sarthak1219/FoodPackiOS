@@ -29,7 +29,7 @@ class RestaurantListTests: XCTestCase {
     //TODO add tests for constructing from database
     
     func testRestaurantListFileNameConstructor_valid() throws {
-        var testlist = RestaurantList(filename: RestaurantInput.testfilename);
+        let testlist = RestaurantList(filename: RestaurantInput.testfilename);
         
         //check if values are same
         XCTAssertEqual(testlist.restaurants[0], r0);
@@ -57,15 +57,15 @@ class RestaurantListTests: XCTestCase {
     }
 
     func testRestaurantListFileNameConstructor_invalid() throws {
-        var testlist1 = RestaurantList(filename: RestaurantInput.emptyfilename);
+        let testlist1 = RestaurantList(filename: RestaurantInput.emptyfilename);
         //check if array is empty
         XCTAssertTrue(testlist1.restaurants.isEmpty);
         
-        var testlist2 = RestaurantList(filename: DNEfilename);
+        let testlist2 = RestaurantList(filename: DNEfilename);
         //check if array is empty
         XCTAssertTrue(testlist2.restaurants.isEmpty);
         
-        var testlist3 = RestaurantList(filename: incompletefilename);
+        let testlist3 = RestaurantList(filename: incompletefilename);
         //check if array is empty
         XCTAssertTrue(testlist3.restaurants.isEmpty);
     }

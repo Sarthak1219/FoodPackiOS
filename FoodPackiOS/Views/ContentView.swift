@@ -19,8 +19,9 @@ struct ContentView: View {
      Bindable boolean showError is used for displaying an alert if the restuarant array is empty (error occured when fetching data)
      */
     @State private var showError = false;
-    @ObservedObject var restaurantList = RestaurantList(scriptname:  RestaurantInput.scriptname);
+    //@ObservedObject var restaurantList = RestaurantList(scriptname:  RestaurantInput.scriptname);
     //@ObservedObject var restaurantList = RestaurantList(filename: RestaurantInput.testfilename);
+    @EnvironmentObject var restaurantList: RestaurantList;
     
     var body: some View {
         //add map overview (later for funsies)
@@ -29,17 +30,14 @@ struct ContentView: View {
             List {
                 ForEach(restaurantList.restaurants, id: \.restaurant_ID) { restaurant in
                     //group needed to use conditional
-                    VStack {
-                        Text(String(restaurant.getIsReady()))
-                        Group{
-                            if(restaurant.getIsReady() == 1){
-                                NavigationLink(destination: RestaurantDetailView(restaurant: restaurant)){
-                                    RestaurantRowView(restaurant: restaurant);
-                                }
+                    Group{
+                        if(restaurant.getIsReady() == 1){
+                            NavigationLink(destination: RestaurantDetailView(restaurant: restaurant)){
+                                RestaurantRowView(restaurant: restaurant)
                             }
-                            else{
-                                RestaurantRowView(restaurant: restaurant);
-                            }
+                        }
+                        else{
+                            RestaurantRowView(restaurant: restaurant)
                         }
                     }
                 }
@@ -60,7 +58,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(RestaurantList(filename: RestaurantInput.testfilename))
     }
 }
 

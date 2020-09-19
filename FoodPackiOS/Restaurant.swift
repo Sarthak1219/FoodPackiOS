@@ -115,9 +115,11 @@ class Restaurant: Codable, Equatable, ObservableObject{
     
     /**
      Method  Changes the is_ready parameter once a volunteer accepts, so the restaurant is no longer visible in the search table of the app.
+     objectWillChange.send() allows the UI to update the home view and not allow the turned off restaurant to be clicked.
      */
-    func turnOffIsReady(){
+    func turnOffIsReady(changingList: RestaurantList){
         if(self.is_ready == 1){
+            changingList.objectWillChange.send();
             self.is_ready = 0;
         }
     }

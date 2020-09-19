@@ -13,36 +13,57 @@ import SwiftUI
  */
 struct FullRestaurantInfoView: View {
     
+    @EnvironmentObject var restaurantList: RestaurantList;
     @ObservedObject var restaurant: Restaurant;
     
     var body: some View {
         VStack {
-            Text(restaurant.inventory_message)
-                .font(.headline)
-                .fontWeight(.semibold)
-                .multilineTextAlignment(.center)
-            Text(restaurant.volunteer_message)
-                .font(.subheadline)
-                .fontWeight(.medium)
-                .multilineTextAlignment(.center)
-            Button(action: {
-                self.restaurant.turnOffIsReady()
-                //add updates to database
-                //open maps
-            }) {
-                HStack() {
-                    Image(systemName: "square.and.arrow.up")
-                    Text("Pickup Food")
-                        .font(.headline)
+            Spacer()
+            VStack{
+                HStack {
+                    Spacer()
+                    Text("Inventory:")
+                        .font(.title)
+                        .foregroundColor(Color.white)
+                        .multilineTextAlignment(.center)
+                    Text(restaurant.inventory_message)
+                        .font(.subheadline)
                         .fontWeight(.semibold)
+                        .foregroundColor(Color.white)
+                        .multilineTextAlignment(.center)
+                    Spacer()
                 }
-                .padding()
-                .frame(minWidth: 0, maxWidth: .infinity)
-                .foregroundColor(Color.white)
-                .background(Color.red)
-                .cornerRadius(50)
-                .padding(.horizontal, 25)
+                Divider()
+                Text(restaurant.volunteer_message)
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+                    .foregroundColor(Color.white)
+                    .multilineTextAlignment(.center)
+                    .padding(.vertical, 5)
+                Button(action: {
+                    //refresh list to check if someone has already taken it
+                    restaurant.turnOffIsReady(changingList: restaurantList)
+                    //add updates to database
+                    //open maps
+                }) {
+                    HStack() {
+                        Image(systemName: "square.and.arrow.up")
+                        Text("Pickup Food")
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                    }
+                    .padding()
+                    .frame(minWidth: 0, maxWidth: .infinity)
+                    .foregroundColor(Color.white)
+                    .background(Color.red)
+                    .cornerRadius(50)
+                    .padding(.horizontal, 25)
+                }
+                .padding(.bottom)
             }
+            .padding(.top, 10)
+            .background(Color.gray)
+            .opacity(0.8)
         }
     }
 }
@@ -52,6 +73,6 @@ struct FullRestaurantInfoView_Previews: PreviewProvider {
     static var restaurantList = RestaurantList(filename: RestaurantInput.testfilename);
     
     static var previews: some View {
-        FullRestaurantInfoView(restaurant: restaurantList.restaurants[1])
+        FullRestaurantInfoView(restaurant: restaurantList.restaurants[1]).environmentObject(RestaurantList(filename: RestaurantInput.testfilename))
     }
 }

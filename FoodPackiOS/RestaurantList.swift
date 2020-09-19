@@ -28,7 +28,9 @@ class RestaurantList: ObservableObject {
             do{
                 let JSONData = try result.get();//only works if the result has a success case
                 let restaurants = try RestaurantInput.parseJSON(JSONData: JSONData);
-                self.restaurants = restaurants;
+                DispatchQueue.main.async {
+                    self.restaurants = restaurants;
+                }
             }
             catch{
                 self.restaurants = [];
