@@ -19,23 +19,12 @@ class RestaurantList: ObservableObject {
     @Published var restaurants: [Restaurant];
     
     /**
-     Initializer for RestaurantList given scriptname
-     Uses RestaurantInput's readDataBaseTable and parseJSON methods.
+     Initializer for RestaurantList using script.
+     Calls refresh method, which uses RestaurantInput's readDataBaseTable and parseJSON methods.
      */
-    init(scriptname: String){
+    init(){
         self.restaurants = [];//needed so self.restaurants can be set in completion of readDataBaseTable method
-        RestaurantInput.readDataBaseTable(script: RestaurantInput.scriptname){ result in
-            do{
-                let JSONData = try result.get();//only works if the result has a success case
-                let restaurants = try RestaurantInput.parseJSON(JSONData: JSONData);
-                DispatchQueue.main.async {
-                    self.restaurants = restaurants;
-                }
-            }
-            catch{
-                self.restaurants = [];
-            }
-        }
+        refresh();
     }
     
     /**
@@ -50,6 +39,27 @@ class RestaurantList: ObservableObject {
         }
         catch{
             self.restaurants = [];
+        }
+    }
+    
+    /**
+     RestaurantList's refresh method sets restaurants to data from database table.
+     Uses RestaurantInput's readDataBaseTable and parseJSON methods.
+     */
+    func refresh(){
+        RestaurantInput.readDataBaseTable(script: RestaurantInput.scriptname){ result in
+            do{
+                let JSONData = try result.get();//only works if the result has a success case
+                let restaurants = try RestaurantInput.parseJSON(JSONData: JSONData);
+                DispatchQueue.main.async {
+                    self.restaurants = restaurants;
+                }
+            }
+            catch{
+                DispatchQueue.main.async {
+                    self.restaurants = [];
+                }
+            }
         }
     }
 }

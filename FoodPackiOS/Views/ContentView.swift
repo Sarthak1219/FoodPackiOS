@@ -19,13 +19,17 @@ struct ContentView: View {
      Bindable boolean showError is used for displaying an alert if the restuarant array is empty (error occured when fetching data)
      */
     @State private var showError = false;
+    /**
+     Bindable boolean showUnavailable is used for allowing user to toggle between showing only available restaurants or all
+     */
+    @State private var showUnavailable = false;
+    
     //@ObservedObject var restaurantList = RestaurantList(scriptname:  RestaurantInput.scriptname);
     //@ObservedObject var restaurantList = RestaurantList(filename: RestaurantInput.testfilename);
     @EnvironmentObject var restaurantList: RestaurantList;
     
     var body: some View {
-        //add map overview (later for funsies)
-        
+        //add map overview;note to self: need to embed navview in stack
         NavigationView {
             List {
                 ForEach(restaurantList.restaurants, id: \.restaurant_ID) { restaurant in
@@ -36,16 +40,30 @@ struct ContentView: View {
                                 RestaurantRowView(restaurant: restaurant)
                             }
                         }
-                        else{
+                        else if(showUnavailable){
                             RestaurantRowView(restaurant: restaurant)
                         }
                     }
                 }
             }
             .navigationBarTitle("Restaurants")
+            .navigationBarItems(leading:
+                Toggle(isOn: $showUnavailable){
+                    Text("Show All")
+                }
+                , trailing:
+                Button(action: {
+                    restaurantList.refresh();
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                         self.showError = self.restaurantList.restaurants.isEmpty;
+                    }
+                }) {
+                    Image(systemName: "arrow.clockwise")
+                }.padding()
+            )
             .onAppear{
-                //self.source.readDataBaseTable(script: RestaurantInput.scriptname);
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                //restaurantList.refresh();
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                      self.showError = self.restaurantList.restaurants.isEmpty;
                 }
             }

@@ -47,7 +47,7 @@ struct FullRestaurantInfoView: View {
                     //open maps
                 }) {
                     HStack() {
-                        Image(systemName: "square.and.arrow.up")
+                        Image(systemName: "square.and.arrow.up.fill")
                         Text("Pickup Food")
                             .font(.headline)
                             .fontWeight(.semibold)

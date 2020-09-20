@@ -32,7 +32,7 @@ struct RestaurantRowView: View {
                     
             }
         }
-        .padding([.top, .bottom], 5.0)
+        .padding(.vertical, 5.0)
     }
 }
 
