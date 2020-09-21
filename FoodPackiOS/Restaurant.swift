@@ -17,7 +17,7 @@ Used for Displaying Information to the Volunteer App User
 Maintains information about the Restaurant's ID, name, location: (address, lat/long), and pickuprequest: (pickup time, inventory message, voluteer message, and whether the restaurant is searching for a volunteer).
 Allows the user to see the is_ready state and turn it off once a volunteer accepts the request.
  */
-class Restaurant: Codable, Equatable, ObservableObject{
+class Restaurant: Codable, Equatable, Comparable, ObservableObject{
     
     /** Stores the Participating Restaurant's ID. */
     let restaurant_ID: Int;
@@ -36,7 +36,7 @@ class Restaurant: Codable, Equatable, ObservableObject{
     /** Stores the Participating Restaurant's Message for the Volunteer. */
     let volunteer_message: String;
     /** Stores if the Participating Restaurant is ready for the Volunteer. 1 if yes, 0 if no (for compatibility with database). */
-    @Published private var is_ready: Int;//make published!!
+    @Published private var is_ready: Int;
     
     /**
      Because Codable and ObservableObject Protocols dont like each other, doing this is required :(
@@ -138,6 +138,14 @@ class Restaurant: Codable, Equatable, ObservableObject{
             && one.inventory_message == two.inventory_message
             && one.volunteer_message == two.volunteer_message
             && one.is_ready == two.is_ready;
+    }
+    
+    /**
+     Method checks how two restaurants compare first by is_ready (1 is less than 0 for this case) then by name; implements comparable protocol method
+     Used for sorting restaurants in RestaurantList so UI displays always available pickups at the top
+     */
+    static func < (lhs: Restaurant, rhs: Restaurant) -> Bool {
+        return (lhs.getIsReady() > rhs.getIsReady()) || ((lhs.getIsReady() == rhs.getIsReady()) && (lhs.restaurant_name < rhs.restaurant_name));
     }
     
 }

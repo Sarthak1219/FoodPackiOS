@@ -24,8 +24,9 @@ struct ContentView: View {
      */
     @State private var showUnavailable = false;
     
-    //@ObservedObject var restaurantList = RestaurantList(scriptname:  RestaurantInput.scriptname);
-    //@ObservedObject var restaurantList = RestaurantList(filename: RestaurantInput.testfilename);
+    /**
+     EnvironmentObject restaurantlist is initialized in scene delegate; stores all restaurants from database.
+     */
     @EnvironmentObject var restaurantList: RestaurantList;
     
     var body: some View {
@@ -35,14 +36,14 @@ struct ContentView: View {
                 ForEach(restaurantList.restaurants, id: \.restaurant_ID) { restaurant in
                     //group needed to use conditional
                     Group{
-                        if(restaurant.getIsReady() == 1){
+                        if(restaurant.getIsReady() == 1 || showUnavailable){
                             NavigationLink(destination: RestaurantDetailView(restaurant: restaurant)){
                                 RestaurantRowView(restaurant: restaurant)
                             }
                         }
-                        else if(showUnavailable){
-                            RestaurantRowView(restaurant: restaurant)
-                        }
+//                        else if(showUnavailable){
+//                            RestaurantRowView(restaurant: restaurant)
+//                        }
                     }
                 }
             }
@@ -63,12 +64,13 @@ struct ContentView: View {
             )
             .onAppear{
                 //restaurantList.refresh();
+                restaurantList.restaurants.sort();
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                      self.showError = self.restaurantList.restaurants.isEmpty;
                 }
             }
             .alert(isPresented: $showError){
-                Alert(title: Text("Error!"), message: Text("Unexcepted Error loading restaurants. Please Check your internet connection and try again :("));
+                Alert(title: Text("Error!"), message: Text("Unexpected Error loading restaurants. Please Check your internet connection and try again :("));
             }
         }
     }

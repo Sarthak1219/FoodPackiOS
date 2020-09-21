@@ -8,6 +8,7 @@
 
 import SwiftUI
 import MapKit
+import CoreLocation
 
 /**
  Shows Map location of restaurant and user's current location.
@@ -15,6 +16,9 @@ import MapKit
  */
 struct SingleRestaurantMapView: UIViewRepresentable {
     
+    /**
+     ObservedObject restaurant passed from contentview's restaurantList via navigation link
+     */
    @ObservedObject var restaurant: Restaurant;
     
     func makeUIView(context: Context) -> MKMapView {

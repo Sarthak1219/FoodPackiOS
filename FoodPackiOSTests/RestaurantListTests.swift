@@ -16,7 +16,7 @@ class RestaurantListTests: XCTestCase {
     let incompletefilename: String = "Test_Files/Test_INC_Restaurant_Info";
     
     let r0 = Restaurant(restaurant_ID:1,restaurant_name:"Ben's Barbeque",restaurant_address:"2109 Avent Ferry Rd, Raleigh, NC",latitude:35.779446,longitude:-78.67543,pickup_time:"2020-09-03 20:30:26",inventory_message:"Copy Inventory Here",volunteer_message:"Thanks for helping reduce food waste in our community!",is_ready:0);
-    let r1 = Restaurant(restaurant_ID:2,restaurant_name:"Sharkie's Grill",restaurant_address:"2610 Cates Ave, Raleigh, NC",latitude:35.783875,longitude:-78.673126,pickup_time:"2020-09-02 14:48:03",inventory_message:"Copy Inventory Here",volunteer_message:"Thanks for helping reduce food waste in our community!",is_ready:1);
+    let r1 = Restaurant(restaurant_ID:2,restaurant_name:"Sharkie's Grill",restaurant_address:"2610 Cates Ave, Raleigh, NC",latitude:35.783875,longitude:-78.673126,pickup_time:"2020-09-02 14:48:03",inventory_message:"10 loaves of bread, 20 cartoons of milk, 5 avocados, 3 falafels",volunteer_message:"Thanks for helping reduce food waste in our community!",is_ready:1);
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -26,9 +26,12 @@ class RestaurantListTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    //TODO add tests for constructing from database
+    //TODO add tests for constructing from database and refresh method
     
-    func testRestaurantListFileNameConstructor_valid() throws {
+    /**
+     Tests the Restaurant's Constructor given a valid fiename
+     */
+    func testRestaurantListFileNameConstructor_valid() {
         let testlist = RestaurantList(filename: RestaurantInput.testfilename);
         
         //check if values are same
@@ -42,7 +45,7 @@ class RestaurantListTests: XCTestCase {
             index += 1;
         }
         
-        testlist.restaurants[1].turnOffIsReady();
+        testlist.restaurants[1].turnOffIsReady(changingList: testlist);
         
         //check if values are updated
         XCTAssertEqual(testlist.restaurants[0], r0);
@@ -56,7 +59,10 @@ class RestaurantListTests: XCTestCase {
         }
     }
 
-    func testRestaurantListFileNameConstructor_invalid() throws {
+    /**
+     Tests the Restaurant's Constructor given an invalid fiename
+     */
+    func testRestaurantListFileNameConstructor_invalid() {
         let testlist1 = RestaurantList(filename: RestaurantInput.emptyfilename);
         //check if array is empty
         XCTAssertTrue(testlist1.restaurants.isEmpty);
@@ -68,6 +74,21 @@ class RestaurantListTests: XCTestCase {
         let testlist3 = RestaurantList(filename: incompletefilename);
         //check if array is empty
         XCTAssertTrue(testlist3.restaurants.isEmpty);
+    }
+    
+    /**
+     Tests the sort() function for arrays; see RestaurantTests for tests of comparable method.
+     */
+    func testRestaurantListSorting(){
+        let testlist = RestaurantList(filename: RestaurantInput.testfilename);
+        
+        //check if values are same
+        XCTAssertEqual(testlist.restaurants[0], r0);
+        XCTAssertEqual(testlist.restaurants[1], r1);
+        
+        testlist.restaurants.sort();
+        XCTAssertEqual(testlist.restaurants[0], r1);
+        XCTAssertEqual(testlist.restaurants[1], r0);
     }
     
 //    func testPerformanceExample() throws {

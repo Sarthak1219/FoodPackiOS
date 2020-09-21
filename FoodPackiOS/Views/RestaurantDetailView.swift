@@ -15,6 +15,9 @@ import SwiftUI
  */
 struct RestaurantDetailView: View {
     
+    /**
+     ObservedObject restaurant passed from contentview's restaurantList in navigation destination link
+     */
     @ObservedObject var restaurant: Restaurant;
     
     var body: some View{
@@ -22,7 +25,9 @@ struct RestaurantDetailView: View {
         ZStack {
             SingleRestaurantMapView(restaurant: restaurant)
                 .edgesIgnoringSafeArea(.all)
-            FullRestaurantInfoView(restaurant: restaurant)
+            if(restaurant.getIsReady() == 1){
+                FullRestaurantInfoView(restaurant: restaurant)
+            }
         }
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D06B8122518571500AE9BB7 /* Test_Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2D06B8112518571500AE9BB7 /* Test_Location.gpx */; };
 		2D1005472503F80200FA4B5D /* RestaurantRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D1005462503F80200FA4B5D /* RestaurantRowView.swift */; };
 		2D10054925040DB500FA4B5D /* RestaurantDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D10054825040DB500FA4B5D /* RestaurantDetailView.swift */; };
 		2D10054B250414EA00FA4B5D /* SingleRestaurantMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D10054A250414EA00FA4B5D /* SingleRestaurantMapView.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2D06B8112518571500AE9BB7 /* Test_Location.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Test_Location.gpx; sourceTree = "<group>"; };
 		2D1005462503F80200FA4B5D /* RestaurantRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantRowView.swift; sourceTree = "<group>"; };
 		2D10054825040DB500FA4B5D /* RestaurantDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailView.swift; sourceTree = "<group>"; };
 		2D10054A250414EA00FA4B5D /* SingleRestaurantMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleRestaurantMapView.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 		2D120F9124FFF15100064C40 = {
 			isa = PBXGroup;
 			children = (
+				2D06B8112518571500AE9BB7 /* Test_Location.gpx */,
 				2D120F9C24FFF15100064C40 /* FoodPackiOS */,
 				2D120FB324FFF15200064C40 /* FoodPackiOSTests */,
 				2D120FBE24FFF15200064C40 /* FoodPackiOSUITests */,
@@ -280,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D120FAA24FFF15200064C40 /* LaunchScreen.storyboard in Resources */,
+				2D06B8122518571500AE9BB7 /* Test_Location.gpx in Resources */,
 				2D41963B2500A47500DE19D7 /* Test_Files in Resources */,
 				2D120FA724FFF15200064C40 /* Preview Assets.xcassets in Resources */,
 				2D120FA424FFF15200064C40 /* Assets.xcassets in Resources */,

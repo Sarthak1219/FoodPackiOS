@@ -13,6 +13,9 @@ import SwiftUI
  */
 struct RestaurantRowView: View {
     
+    /**
+     ObservedObject restaurant passed from contentview's restaurantList
+     */
     @ObservedObject var restaurant: Restaurant;
     
     var body: some View {

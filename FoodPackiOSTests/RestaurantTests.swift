@@ -33,7 +33,7 @@ class RestaurantTests: XCTestCase {
     }
 
     /**
-     Tests the Restaurant's Constructor; Testing for use in RestaurantInputTests class.
+     Tests the Restaurant's Constructor.
      */
     func testRestaurantConstructor() {
         let r = Restaurant(restaurant_ID: test_restaurant_ID, restaurant_name: test_restaurant_name, restaurant_address: test_restaurant_address, latitude: test_latitude, longitude: test_longitude, pickup_time: test_pickup_time, inventory_message: test_inventory_message, volunteer_message: test_volunteer_message, is_ready: 0);
@@ -62,23 +62,36 @@ class RestaurantTests: XCTestCase {
         XCTAssertFalse(r1 == r3);
     }
     
+    /** Tests Restaurant's implementation of Comparable Protocol's method; Testing for sorting RestaurantList */
+    func testcomparablemethod(){
+        let r1 = Restaurant(restaurant_ID: test_restaurant_ID, restaurant_name: test_restaurant_name, restaurant_address: test_restaurant_address, latitude: test_latitude, longitude: test_longitude, pickup_time: test_pickup_time, inventory_message: test_inventory_message, volunteer_message: test_volunteer_message, is_ready: 0);
+        let r2 = Restaurant(restaurant_ID: test_restaurant_ID, restaurant_name: test_restaurant_name, restaurant_address: test_restaurant_address, latitude: test_latitude, longitude: test_longitude, pickup_time: test_pickup_time, inventory_message: test_inventory_message, volunteer_message: test_volunteer_message, is_ready: 1);
+        let r3 = Restaurant(restaurant_ID: test_restaurant_ID, restaurant_name: test_restaurant_name, restaurant_address: test_restaurant_address, latitude: test_latitude, longitude: test_longitude, pickup_time: test_pickup_time, inventory_message: test_inventory_message, volunteer_message: test_volunteer_message, is_ready: 1);
+        let r4 = Restaurant(restaurant_ID: test_restaurant_ID, restaurant_name: "Sharkie's Sushi", restaurant_address: test_restaurant_address, latitude: test_latitude, longitude: test_longitude, pickup_time: test_pickup_time, inventory_message: test_inventory_message, volunteer_message: test_volunteer_message, is_ready: 1);
+        
+        XCTAssertTrue(r2 < r1);
+        XCTAssertFalse(r2 < r2);
+        XCTAssertFalse(r2 < r3);
+        XCTAssertTrue(r2 < r4);
+    }
+    
     /**
      Tests Restaurant's turnOffIsReady Method.
      */
     func testTurnOffIsReady() {
         let r1 = Restaurant(restaurant_ID: test_restaurant_ID, restaurant_name: test_restaurant_name, restaurant_address: test_restaurant_address, latitude: test_latitude, longitude: test_longitude, pickup_time: test_pickup_time, inventory_message: test_inventory_message, volunteer_message: test_volunteer_message, is_ready: 1);
         
-        r1.turnOffIsReady();
+        r1.turnOffIsReady(changingList: RestaurantList(filename: RestaurantInput.emptyfilename));
         XCTAssertEqual(r1.getIsReady(), 0);
-        r1.turnOffIsReady();
+        r1.turnOffIsReady(changingList: RestaurantList(filename: RestaurantInput.emptyfilename));
         XCTAssertEqual(r1.getIsReady(), 0);
         
         let r2 = Restaurant(restaurant_ID: test_restaurant_ID, restaurant_name: test_restaurant_name, restaurant_address: test_restaurant_address, latitude: test_latitude, longitude: test_longitude, pickup_time: test_pickup_time, inventory_message: test_inventory_message, volunteer_message: test_volunteer_message, is_ready: 0);
         
-        r2.turnOffIsReady();
+        r2.turnOffIsReady(changingList: RestaurantList(filename: RestaurantInput.emptyfilename));
         XCTAssertEqual(r2.getIsReady(), 0);
     }
-
+    
 //    func testPerformanceExample() {
 //        // This is an example of a performance test case.
 //        self.measure {

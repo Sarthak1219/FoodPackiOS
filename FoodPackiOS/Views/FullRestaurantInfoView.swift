@@ -13,7 +13,14 @@ import SwiftUI
  */
 struct FullRestaurantInfoView: View {
     
+    /**
+     EnvironmentObject restaurantlist is initialized in scene delegate; stores all restaurants from database.
+     Needed in this view so list updates views locally, before info is refreshed automatically from database.
+     */
     @EnvironmentObject var restaurantList: RestaurantList;
+    /**
+     ObservedObject restaurant passed from contentview's restaurantList via navigation link
+     */
     @ObservedObject var restaurant: Restaurant;
     
     var body: some View {
