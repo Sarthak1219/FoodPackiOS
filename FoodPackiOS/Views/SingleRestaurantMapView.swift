@@ -22,7 +22,9 @@ struct SingleRestaurantMapView: UIViewRepresentable {
    @ObservedObject var restaurant: Restaurant;
     
     func makeUIView(context: Context) -> MKMapView {
-        return MKMapView()
+        let mapView = MKMapView()
+        //add user location set up
+        return mapView
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
