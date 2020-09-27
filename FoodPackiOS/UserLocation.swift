@@ -9,9 +9,17 @@
 import Foundation
 import CoreLocation
 
+/**
+UserLocation class is a helper class for map views.
+Uses NSObject and CLLocationManagerDelegate protocols to allow updates to user location and view.
+ Maintains an instance of a locationManager, which allows access to the user's location.
+ Maintains the user's current location as it is updated.
+ Includes private method for checking permissions.
+ */
 class UserLocation: NSObject, CLLocationManagerDelegate{
     
     let locationManager = CLLocationManager();
+    var currentLocation: CLLocationCoordinate2D?
     
     override init(){
         super.init();
@@ -21,26 +29,48 @@ class UserLocation: NSObject, CLLocationManagerDelegate{
     /**
      Function checks current user location permissions.
      Returns true if location usage is allowed; false otherwise
-     If the Authorization is not determined, a request will be made to the user.
+     If the app Authorization is not determined, a request will be made to the user.
      */
-    func checkAuthorization() -> Bool {
+    private func checkAuthorization() -> Bool {
+        //system wide check
         if(!CLLocationManager.locationServicesEnabled()){
-            return false
+            locationManager.stopUpdatingLocation();
+            return false;
         }
+        //app permission check
         switch CLLocationManager.authorizationStatus() {
             case .authorizedWhenInUse:
+                locationManager.startUpdatingLocation();
                 return true;
             case .denied:
+                locationManager.stopUpdatingLocation();
                 return false;
             case .notDetermined:
+                locationManager.stopUpdatingLocation();
                 locationManager.requestWhenInUseAuthorization()
                 return false;
             case .restricted:
+                locationManager.stopUpdatingLocation();
                 return false;
             case .authorizedAlways:
+                locationManager.startUpdatingLocation();
                 return true;
         @unknown default:
+            locationManager.stopUpdatingLocation();
             return false;
         }
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        if(checkAuthorization()){
+            currentLocation = locationManager.location?.coordinate;
+        }
+        else{
+            currentLocation = nil;
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        <#code#>
     }
 }

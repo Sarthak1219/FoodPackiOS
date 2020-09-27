@@ -13,6 +13,7 @@ import CoreLocation
 /**
  Shows Map location of restaurant and user's current location.
  Maybe: Show route and time needed to travel.
+ Uses helper class UserLocation, which handles permissions, location changes, and calculating ETA's/distances
  */
 struct SingleRestaurantMapView: UIViewRepresentable {
     
@@ -20,11 +21,13 @@ struct SingleRestaurantMapView: UIViewRepresentable {
      ObservedObject restaurant passed from contentview's restaurantList via navigation link
      */
    @ObservedObject var restaurant: Restaurant;
+    /**
+     UserLocation helper class.
+     */
+    var userLocation = UserLocation();
     
     func makeUIView(context: Context) -> MKMapView {
-        let mapView = MKMapView()
-        //add user location set up
-        return mapView
+        return MKMapView()
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
