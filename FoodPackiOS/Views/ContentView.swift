@@ -36,14 +36,14 @@ struct ContentView: View {
                 ForEach(restaurantList.restaurants, id: \.restaurant_ID) { restaurant in
                     //group needed to use conditional
                     Group{
-                        if(restaurant.getIsReady() == 1 || showUnavailable){
+                        if(restaurant.getIsReady() == 1){
                             NavigationLink(destination: RestaurantDetailView(restaurant: restaurant)){
                                 RestaurantRowView(restaurant: restaurant)
                             }
                         }
-//                        else if(showUnavailable){
-//                            RestaurantRowView(restaurant: restaurant)
-//                        }
+                        else if(showUnavailable){
+                            RestaurantRowView(restaurant: restaurant)
+                        }
                     }
                 }
             }
