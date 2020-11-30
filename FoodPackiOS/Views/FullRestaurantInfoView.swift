@@ -27,6 +27,19 @@ struct FullRestaurantInfoView: View {
         VStack {
             Spacer()
             VStack{
+                RoundedRectangle(cornerRadius: 75, style: .circular)
+                    .fill(Color.white)
+                    .frame(width: 100, height: 7.5)
+                HStack {
+                    Text(restaurant.restaurant_name)
+                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                        .fontWeight(.black)
+                        .foregroundColor(Color.white)
+                        .multilineTextAlignment(.center)
+                        .padding(.leading, 20)
+                    Spacer()
+                }
+                Divider()
                 HStack {
                     Spacer()
                     Text("Inventory:")

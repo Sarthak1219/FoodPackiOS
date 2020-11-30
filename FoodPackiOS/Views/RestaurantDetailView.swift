@@ -34,9 +34,7 @@ struct RestaurantDetailView: View {
 
 struct RestaurantDetailView_Previews: PreviewProvider {
     
-    static var restaurantList = RestaurantList(filename: RestaurantInput.testfilename);
-    
     static var previews: some View {
-        RestaurantDetailView(restaurant: restaurantList.restaurants[1])
+        RestaurantDetailView(restaurant: RestaurantList(filename: RestaurantInput.testfilename).restaurants[1]).environmentObject(UserLocation())
     }
 }
