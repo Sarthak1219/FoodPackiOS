@@ -22,9 +22,9 @@ struct SingleRestaurantMapView: UIViewRepresentable {
      */
    @ObservedObject var restaurant: Restaurant;
     /**
-     UserLocation helper class instance.
+     EnvironmentObject UserLocation is initialized in scene delegate; stores user location and has method to calculate route to restuarant
      */
-    @EnvironmentObject var userLocation: UserLocation;
+    @EnvironmentObject var userLocationServices: UserLocation;
     
     func makeUIView(context: Context) -> MKMapView {
         return MKMapView()
@@ -38,7 +38,7 @@ struct SingleRestaurantMapView: UIViewRepresentable {
         uiView.addAnnotation(restaurantpin)
         
         //add user location and route information, if available
-        uiView.showsUserLocation = userLocation.isAvailable();
+        uiView.showsUserLocation = userLocationServices.isAvailable();
         
         
         let coordinate = CLLocationCoordinate2D(

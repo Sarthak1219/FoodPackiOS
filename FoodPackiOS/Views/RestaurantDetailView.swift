@@ -20,14 +20,11 @@ struct RestaurantDetailView: View {
      */
     @ObservedObject var restaurant: Restaurant;
     
-    var userLocation = UserLocation();
-    
     var body: some View{
         //Text("Hello World!")
         ZStack {
             SingleRestaurantMapView(restaurant: restaurant)
                 .edgesIgnoringSafeArea(.all)
-                .environmentObject(userLocation)
             if(restaurant.getIsReady() == 1){
                 FullRestaurantInfoView(restaurant: restaurant)
             }
