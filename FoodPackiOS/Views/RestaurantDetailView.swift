@@ -23,8 +23,8 @@ struct RestaurantDetailView: View {
     /**
      Variable storing offset for FullRestaurantInfoView to allow drag gestures.
      */
-    @State private var detailOffset = CGFloat(200);
-    
+    @State private var detailOffset = UIScreen.main.bounds.height * 0.75;
+    //TODO use geometry reader so offset is based on size of Panel View
     var body: some View{
         //Text("Hello World!")
         ZStack {
@@ -36,17 +36,19 @@ struct RestaurantDetailView: View {
                     .gesture(DragGesture()
                         .onChanged({ value in
                             //add "resistance"
-                            detailOffset += value.translation.height;
+                            detailOffset = value.location.y;
                         })
                         .onEnded({ value in
-                            //withAnimation(.spring(response: 0.2, dampingFraction: 0.1, blendDuration: 0)){
-                                if(detailOffset > 200){
-                                    detailOffset = 200;
-                                }
-                                else if(detailOffset < 0){
-                                    detailOffset = 0;
-                                }
-                            //}
+                            withAnimation(.easeIn){
+                            //moved panel down
+                            if(value.translation.height > 0){
+                                detailOffset = UIScreen.main.bounds.height * 0.75;
+                            }
+                            //moved panel up
+                            else if(value.translation.height < 0){
+                                detailOffset = UIScreen.main.bounds.height * 0.5;
+                            }
+                            }
                         })
                     )
             }

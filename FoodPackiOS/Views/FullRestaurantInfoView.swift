@@ -25,7 +25,7 @@ struct FullRestaurantInfoView: View {
     
     var body: some View {
         VStack {
-            Spacer()
+            //Spacer()
             VStack{
                 RoundedRectangle(cornerRadius: 75, style: .circular)
                     .fill(Color.red)
@@ -37,6 +37,7 @@ struct FullRestaurantInfoView: View {
                         .foregroundColor(Color.white)
                         .multilineTextAlignment(.center)
                         .padding(.leading, 20)
+                        .padding(.bottom, 20)
                     Spacer()
                 }
                 Divider()
@@ -81,11 +82,12 @@ struct FullRestaurantInfoView: View {
                 }
                 .padding(.bottom)
             }
-            .padding(.top, 10)
-            .background(Color.gray)
-            .opacity(0.8)
-            .cornerRadius(15)
+            Spacer()
         }
+        .padding(.top, 10)
+        .background(Color.gray)
+        .opacity(0.8)
+        .cornerRadius(15)
     }
 }
 
