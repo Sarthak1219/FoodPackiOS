@@ -20,6 +20,11 @@ struct RestaurantDetailView: View {
      */
     @ObservedObject var restaurant: Restaurant;
     
+    /**
+     Variable storing offset for FullRestaurantInfoView to allow drag gestures.
+     */
+    @State private var detailOffset = CGFloat(200);
+    
     var body: some View{
         //Text("Hello World!")
         ZStack {
@@ -27,6 +32,23 @@ struct RestaurantDetailView: View {
                 .edgesIgnoringSafeArea(.all)
             if(restaurant.getIsReady() == 1){
                 FullRestaurantInfoView(restaurant: restaurant)
+                    .offset(x: 0, y: detailOffset)
+                    .gesture(DragGesture()
+                        .onChanged({ value in
+                            //add "resistance"
+                            detailOffset += value.translation.height;
+                        })
+                        .onEnded({ value in
+                            //withAnimation(.spring(response: 0.2, dampingFraction: 0.1, blendDuration: 0)){
+                                if(detailOffset > 200){
+                                    detailOffset = 200;
+                                }
+                                else if(detailOffset < 0){
+                                    detailOffset = 0;
+                                }
+                            //}
+                        })
+                    )
             }
         }
     }

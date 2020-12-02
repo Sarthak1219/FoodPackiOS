@@ -28,7 +28,7 @@ struct FullRestaurantInfoView: View {
             Spacer()
             VStack{
                 RoundedRectangle(cornerRadius: 75, style: .circular)
-                    .fill(Color.white)
+                    .fill(Color.red)
                     .frame(width: 100, height: 7.5)
                 HStack {
                     Text(restaurant.restaurant_name)
@@ -84,6 +84,7 @@ struct FullRestaurantInfoView: View {
             .padding(.top, 10)
             .background(Color.gray)
             .opacity(0.8)
+            .cornerRadius(15)
         }
     }
 }
