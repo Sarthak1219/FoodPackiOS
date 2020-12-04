@@ -21,10 +21,11 @@ struct SingleRestaurantMapView: UIViewRepresentable {
      ObservedObject restaurant passed from contentview's restaurantList via navigation link
      */
    @ObservedObject var restaurant: Restaurant;
+    
     /**
-     EnvironmentObject UserLocation is initialized in scene delegate; stores user location and has method to calculate route to restuarant
+     Variable of type MKRoute stores route from user's current location to restaurant. Used to display route on map. Passed in from RestaurantDetailView. Will be null if user location is not accessible or maps service is not working
      */
-    @EnvironmentObject var userLocationServices: UserLocation;
+    var restaurantRoute: MKRoute?;
     
     func makeUIView(context: Context) -> MKMapView {
         return MKMapView()
@@ -38,7 +39,7 @@ struct SingleRestaurantMapView: UIViewRepresentable {
         uiView.addAnnotation(restaurantpin)
         
         //add user location and route information, if available
-        uiView.showsUserLocation = userLocationServices.isAvailable();
+        //change to if route is nil or not
         
         
         let coordinate = CLLocationCoordinate2D(

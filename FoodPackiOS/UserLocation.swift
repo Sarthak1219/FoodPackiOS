@@ -43,13 +43,13 @@ class UserLocation: NSObject, CLLocationManagerDelegate, ObservableObject{
         return nil;
     }
     
-    /**
-     Function returns true if the currentLocation variable is not null, false if null (not available)
-     Used in map views to determine if location can be displayed.
-     */
-    func isAvailable() -> Bool {
-        return currentLocation != nil;
-    }
+//    /**
+//     Function returns true if the currentLocation variable is not null, false if null (not available)
+//     Used in map views to determine if location can be displayed.
+//     */
+//    func isAvailable() -> Bool {
+//        return currentLocation != nil;
+//    }
     
     /**
      Function checks current user location permissions.

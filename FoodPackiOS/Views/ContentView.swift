@@ -29,6 +29,11 @@ struct ContentView: View {
      */
     @EnvironmentObject var restaurantList: RestaurantList;
     
+    /**
+     EnvironmentObject UserLocation is initialized in scene delegate; stores user location and has method to calculate route to restuarant, used to calculate route and pass route object to detailview
+     */
+    @EnvironmentObject var userLocationServices: UserLocation;
+    
     var body: some View {
         //add map overview;note to self: need to embed navview in stack
         NavigationView {
@@ -37,7 +42,7 @@ struct ContentView: View {
                     //group needed to use conditional
                     Group{
                         if(restaurant.getIsReady() == 1){
-                            NavigationLink(destination: RestaurantDetailView(restaurant: restaurant)){
+                            NavigationLink(destination: RestaurantDetailView(restaurant: restaurant, restaurantRoute: userLocationServices.getRoute(restaurant: restaurant))){
                                 RestaurantRowView(restaurant: restaurant)
                             }
                         }

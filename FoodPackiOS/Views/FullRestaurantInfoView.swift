@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import MapKit
 
 /**
  Show all Restuarant details, including inventory message, volunteer message, and button to accept request.
@@ -23,6 +24,22 @@ struct FullRestaurantInfoView: View {
      */
     @ObservedObject var restaurant: Restaurant;
     
+    /**
+     Helper variable dateOutput is of type DateFormatter, which allows eta to be displayed from route.
+     It is constructed only when route is available (computed value)
+     */
+    private var dateOutput: DateFormatter{
+        let formatter = DateFormatter();
+        formatter.dateStyle = .none;
+        formatter.timeStyle = .short;
+        return formatter;
+    }
+    
+    /**
+     Variable of type MKRoute stores route from user's current location to restaurant. Used to show eta in panel. Passed in from RestaurantDetailView. Will be null if user location is not accessible or maps service is not working
+     */
+    var restaurantRoute: MKRoute?;
+    
     var body: some View {
         VStack {
             //Spacer()
@@ -34,12 +51,27 @@ struct FullRestaurantInfoView: View {
                     Text(restaurant.restaurant_name)
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                         .fontWeight(.black)
-                        .foregroundColor(Color.white)
                         .multilineTextAlignment(.center)
                         .padding(.leading, 20)
-                        .padding(.bottom, 20)
+                        //
                     Spacer()
+                    Text("ETA:")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                    Group{
+                        if(restaurantRoute == nil){
+                            Text("NA")
+                        }
+                        else{
+                            //TODO: add restaurantRoute!.expectedTravelTime to current date for ETA
+                            Text(dateOutput.string(from: Date()))
+                        }
+                    }
+                    .font(.callout)
+                    .padding(.trailing, 20)
                 }
+                .foregroundColor(Color.white)
+                .padding(.bottom, 20)
                 Divider()
                 HStack {
                     Spacer()
@@ -96,6 +128,6 @@ struct FullRestaurantInfoView_Previews: PreviewProvider {
     static var restaurantList = RestaurantList(filename: RestaurantInput.testfilename);
     
     static var previews: some View {
-        FullRestaurantInfoView(restaurant: restaurantList.restaurants[1]).environmentObject(RestaurantList(filename: RestaurantInput.testfilename))
+        FullRestaurantInfoView(restaurant: restaurantList.restaurants[1], restaurantRoute: nil).environmentObject(RestaurantList(filename: RestaurantInput.testfilename))
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import MapKit
 
 /**
  RestaurantDetailView is view shown when restaurant is selected from ContentView
@@ -21,6 +22,11 @@ struct RestaurantDetailView: View {
     @ObservedObject var restaurant: Restaurant;
     
     /**
+     Variable of type MKRoute stores route from user's current location to restaurant. Used to display route on map and give eta in panel. This is passed in from the navigationlink in content view. Will be null if user location is not accessible or maps service is not working
+     */
+    var restaurantRoute: MKRoute?;
+    
+    /**
      Variable storing offset for FullRestaurantInfoView to allow drag gestures.
      */
     @State private var detailOffset = UIScreen.main.bounds.height - 220;
@@ -28,7 +34,7 @@ struct RestaurantDetailView: View {
     var body: some View{
         //Text("Hello World!")
         ZStack {
-            SingleRestaurantMapView(restaurant: restaurant)
+            SingleRestaurantMapView(restaurant: restaurant, restaurantRoute: restaurantRoute)
                 .edgesIgnoringSafeArea(.all)
             if(restaurant.getIsReady() == 1) {
                 FullRestaurantInfoView(restaurant: restaurant)
@@ -41,7 +47,7 @@ struct RestaurantDetailView: View {
                         })
                         .onEnded({ value in
                             withAnimation(.easeIn){
-                                //print(UIScreen.main.bounds.height)
+                                //print(Date())
                                 //moved panel down
                                 if(value.translation.height > 0){
                                     detailOffset = UIScreen.main.bounds.height - 220;
