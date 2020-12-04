@@ -2,6 +2,15 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:FoodPackiOS.xcodeproj">
+      location = "group:/Users/Sarthak/Documents/FoodPackiOS/FoodPackiOS/Preview Content/Simulator Screen Shot - iPhone 11 - 2020-12-04 at 09.43.20.png">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/Sarthak/Documents/FoodPackiOS/FoodPackiOS/Preview Content/Simulator Screen Shot - iPhone 11 - 2020-12-04 at 09.43.42.png">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/Sarthak/Documents/FoodPackiOS/FoodPackiOS/Preview Content/Simulator Screen Shot - iPhone 11 - 2020-12-04 at 09.43.49.png">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>

@@ -26,6 +26,7 @@
 		2D3846432510F2A0001E512D /* RestaurantListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3846422510F2A0001E512D /* RestaurantListTests.swift */; };
 		2D41963B2500A47500DE19D7 /* Test_Files in Resources */ = {isa = PBXBuildFile; fileRef = 2D41963A2500A47500DE19D7 /* Test_Files */; };
 		2D41963C2500A47500DE19D7 /* Test_Files in Resources */ = {isa = PBXBuildFile; fileRef = 2D41963A2500A47500DE19D7 /* Test_Files */; };
+		2D7A059A257A857400CD272B /* Github Images in Resources */ = {isa = PBXBuildFile; fileRef = 2D7A0599257A857400CD272B /* Github Images */; };
 		2D9B0C45251BCFFD0001DC38 /* UserLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9B0C44251BCFFD0001DC38 /* UserLocation.swift */; };
 		2DA86BDC25008D2A00343544 /* RestaurantInputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA86BDB25008D2A00343544 /* RestaurantInputTests.swift */; };
 /* End PBXBuildFile section */
@@ -72,6 +73,7 @@
 		2D3846402510E591001E512D /* RestaurantList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantList.swift; sourceTree = "<group>"; };
 		2D3846422510F2A0001E512D /* RestaurantListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListTests.swift; sourceTree = "<group>"; };
 		2D41963A2500A47500DE19D7 /* Test_Files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Test_Files; sourceTree = "<group>"; };
+		2D7A0599257A857400CD272B /* Github Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Github Images"; sourceTree = "<group>"; };
 		2D9B0C44251BCFFD0001DC38 /* UserLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocation.swift; sourceTree = "<group>"; };
 		2DA86BDB25008D2A00343544 /* RestaurantInputTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantInputTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -125,6 +127,7 @@
 		2D120F9C24FFF15100064C40 /* FoodPackiOS */ = {
 			isa = PBXGroup;
 			children = (
+				2D7A0599257A857400CD272B /* Github Images */,
 				2D120F9D24FFF15100064C40 /* AppDelegate.swift */,
 				2D120F9F24FFF15100064C40 /* SceneDelegate.swift */,
 				2D69BA23250E96B3003E8F83 /* Views */,
@@ -289,6 +292,7 @@
 				2D06B8122518571500AE9BB7 /* Test_Location.gpx in Resources */,
 				2D41963B2500A47500DE19D7 /* Test_Files in Resources */,
 				2D120FA724FFF15200064C40 /* Preview Assets.xcassets in Resources */,
+				2D7A059A257A857400CD272B /* Github Images in Resources */,
 				2D120FA424FFF15200064C40 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

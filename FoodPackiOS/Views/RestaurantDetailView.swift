@@ -24,6 +24,7 @@ struct RestaurantDetailView: View {
      Variable storing offset for FullRestaurantInfoView to allow drag gestures.
      */
     @State private var detailOffset = UIScreen.main.bounds.height - 220;
+    
     var body: some View{
         //Text("Hello World!")
         ZStack {
@@ -40,15 +41,15 @@ struct RestaurantDetailView: View {
                         })
                         .onEnded({ value in
                             withAnimation(.easeIn){
-                            //moved panel down
-                                print(UIScreen.main.bounds.height)
-                            if(value.translation.height > 0){
-                                detailOffset = UIScreen.main.bounds.height - 220;
-                            }
-                            //moved panel up
-                            else if(value.translation.height < 0){
-                                detailOffset = UIScreen.main.bounds.height - 440;
-                            }
+                                //print(UIScreen.main.bounds.height)
+                                //moved panel down
+                                if(value.translation.height > 0){
+                                    detailOffset = UIScreen.main.bounds.height - 220;
+                                }
+                                //moved panel up
+                                else if(value.translation.height < 0){
+                                    detailOffset = UIScreen.main.bounds.height - 440;
+                                }
                             }
                         })
                     )
