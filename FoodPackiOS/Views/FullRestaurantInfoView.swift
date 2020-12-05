@@ -49,7 +49,7 @@ struct FullRestaurantInfoView: View {
                     .frame(width: 100, height: 7.5)
                 HStack {
                     Text(restaurant.restaurant_name)
-                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                        .font(.title)
                         .fontWeight(.black)
                         .multilineTextAlignment(.center)
                         .padding(.leading, 20)

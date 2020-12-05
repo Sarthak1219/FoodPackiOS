@@ -34,22 +34,37 @@ class UserLocation: NSObject, CLLocationManagerDelegate, ObservableObject{
         locationManager.delegate = self;
     }
     
+    private func createRequest(restaurant: Restaurant) -> MKDirections.Request{
+        let request = MKDirections.Request();
+        request.source = MKMapItem(placemark: MKPlacemark(coordinate: currentLocation!));
+        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(
+                                                                latitude: CLLocationDegrees(restaurant.latitude), longitude: CLLocationDegrees(restaurant.longitude))));
+        request.departureDate = Date();//current date/time
+        request.requestsAlternateRoutes = false;
+        request.transportType = .automobile;
+        return request;
+    }
+    
     /**
      Funtion returns MKRoute object given restaurant to calculate route from currentLocation to restaurant.
      If the currentLocation is null, or the response from apple servers returns an error, the method returns null..
      TODO
      */
     func getRoute(restaurant: Restaurant) -> MKRoute? {
-        return nil;
+        if(currentLocation == nil){
+            return nil;
+        }
+        let request = createRequest(restaurant: restaurant);
+        let directions = MKDirections(request: request);
+        //variable declared so result from service call can be used in method
+        var directionResponse: MKDirections.Response?;
+        directions.calculate { result, error in
+            directionResponse = result;
+        }
+        //return route (only 1 bc specified in request) or nil if error was returned (if result is nil, there had to be an error)
+        //rn, this will always be null, because calculate method is async
+        return directionResponse?.routes[0] ?? nil;
     }
-    
-//    /**
-//     Function returns true if the currentLocation variable is not null, false if null (not available)
-//     Used in map views to determine if location can be displayed.
-//     */
-//    func isAvailable() -> Bool {
-//        return currentLocation != nil;
-//    }
     
     /**
      Function checks current user location permissions.

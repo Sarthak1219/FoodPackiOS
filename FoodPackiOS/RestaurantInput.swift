@@ -38,43 +38,6 @@ struct RestaurantInput{
     */
     static let emptyfilename: String = "Test_Files/Test_Empty_Restaurant_Info";
     
-//    /**
-//     RestauratInput Method readDataBaseTable stores data from php script -that returns all restaurant_info in JSON- in result completion success case.
-//     If the script is not found, an RestaurantInputError.fileNotFound will be printed
-//     If data cannot be retreived from the Url, the method will return without setting restaurants.
-//     URLSession.shared.dataTask does not allow errors to be thrown, and Result didnt work, so no other throwing errors :(
-//     */
-//    func readDataBaseTable(script: String) {
-//        self.restaurants = [];
-//        guard let url = URL(string: script) else {
-//            print(RestaurantInputError.fileNotFound.localizedDescription);
-//            return;
-//        }
-//
-//        let request = URLRequest(url: url);
-//
-//        let config = URLSessionConfiguration.default;
-//        config.waitsForConnectivity = true;
-//        
-//        URLSession(configuration: config).dataTask(with: request) { data, response, error in
-//            if(error == nil){
-//                do{
-//                    let restaurants = try RestaurantInput.parseJSON(JSONData: data);
-//                    DispatchQueue.main.async {
-//                        self.restaurants = restaurants;
-//                    }
-//                    return;
-//                }
-//                catch{
-//                    //error cannot be dataisEmpty, because error is nil, so data not empty
-//                    //error is decode error
-//                    return;
-//                }
-//            }
-//            print(error!.localizedDescription);
-//        }.resume()
-//    }
-    
     /**
      RestauratInput Method readDataBaseTable stores data from php script -that returns all restaurant_info in JSON- in result completion success case.
      If the script is not found, an RestaurantInputError.fileNotFound will be stored in the result completion failure case.

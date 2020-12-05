@@ -47,7 +47,7 @@ struct RestaurantDetailView: View {
                         })
                         .onEnded({ value in
                             withAnimation(.easeIn){
-                                //print(Date())
+                                print(restaurantRoute.debugDescription)
                                 //moved panel down
                                 if(value.translation.height > 0){
                                     detailOffset = UIScreen.main.bounds.height - 220;
