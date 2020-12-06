@@ -13,7 +13,7 @@ import MapKit
 /**
 UserLocation class is a helper class for map views.
 Uses NSObject and CLLocationManagerDelegate protocols to allow updates to user location and view.
- Uses ObservableOject Protocol and @published so map views auto update when user's location changes
+ Uses ObservableOject Protocol and @published so map views auto update when user's location changes and route has been calculated
  Maintains an instance of a locationManager, which allows access to the user's location.
  Maintains the user's current location as it is updated.
  Includes private method for checking permissions.
@@ -24,16 +24,29 @@ class UserLocation: NSObject, CLLocationManagerDelegate, ObservableObject{
      Location Manager Instance, allows retrieval of location, and updates to location
      */
     let locationManager = CLLocationManager();
+    
     /**
      Stores user's current location.
      */
     @Published private var currentLocation: CLLocationCoordinate2D?;
     
+    /**
+     Stores collection of routes calculated for UI.
+     Key is restuarant_ID, value is route calculated.
+     */
+    @Published var routeDictionary: [Int: MKRoute?] = [:];
+    
+    /**
+     Constructor initializes CLLocationManagerDelegate
+     */
     override init(){
         super.init();
         locationManager.delegate = self;
     }
     
+    /**
+     Helper method configures request and returns for use in route calculation
+     */
     private func createRequest(restaurant: Restaurant) -> MKDirections.Request{
         let request = MKDirections.Request();
         request.source = MKMapItem(placemark: MKPlacemark(coordinate: currentLocation!));
@@ -46,24 +59,44 @@ class UserLocation: NSObject, CLLocationManagerDelegate, ObservableObject{
     }
     
     /**
-     Funtion returns MKRoute object given restaurant to calculate route from currentLocation to restaurant.
-     If the currentLocation is null, or the response from apple servers returns an error, the method returns null..
-     TODO
+     Helper method calls MKDirections' calculate method with a completion
+     If there is an error, it is stored in the failure completion case. Otherwise, the response will be stored in success
      */
-    func getRoute(restaurant: Restaurant) -> MKRoute? {
+    private func calculateRoute(routeRequest: MKDirections.Request, completion: @escaping (Result<MKDirections.Response, Error>) -> Void) {
+        let directionsHelper = MKDirections(request: routeRequest);
+        if(directionsHelper.isCalculating){
+            directionsHelper.cancel();//cancels previous request if it is still calculating
+        }
+        directionsHelper.calculate { (response, error) in
+            if(error == nil){
+                completion(.success(response!));
+                return;
+            }
+            completion(.failure(error!));
+        }
+    }
+    
+    /**
+     Funtion adds MKRoute object given restaurant from route calculation to user location's dictionary of routes
+     If the currentLocation is null, or the response from apple servers returns an error, a nil route is added for the restuarant.
+     */
+    func addRouteToDictionary(restaurant: Restaurant) {
         if(currentLocation == nil){
-            return nil;
+            self.routeDictionary.updateValue(nil, forKey: restaurant.restaurant_ID);
         }
-        let request = createRequest(restaurant: restaurant);
-        let directions = MKDirections(request: request);
-        //variable declared so result from service call can be used in method
-        var directionResponse: MKDirections.Response?;
-        directions.calculate { result, error in
-            directionResponse = result;
+        
+        //calls private helper func
+        else{
+            calculateRoute(routeRequest: createRequest(restaurant: restaurant)){ result in
+                do{
+                    //adds route for given restuarant. result.get() will throw if error was returned from calculate method
+                    try self.routeDictionary.updateValue(result.get().routes[0], forKey: restaurant.restaurant_ID);
+                } catch{
+                    //add nil for route unavailable
+                    self.routeDictionary.updateValue(nil, forKey: restaurant.restaurant_ID);
+                }
+            }
         }
-        //return route (only 1 bc specified in request) or nil if error was returned (if result is nil, there had to be an error)
-        //rn, this will always be null, because calculate method is async
-        return directionResponse?.routes[0] ?? nil;
     }
     
     /**
@@ -120,6 +153,7 @@ class UserLocation: NSObject, CLLocationManagerDelegate, ObservableObject{
      */
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = locations.last?.coordinate;
+        //clear route dictionary, as previous routes are now outdated
     }
     
 }

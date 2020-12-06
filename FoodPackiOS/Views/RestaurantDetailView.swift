@@ -22,9 +22,9 @@ struct RestaurantDetailView: View {
     @ObservedObject var restaurant: Restaurant;
     
     /**
-     Variable of type MKRoute stores route from user's current location to restaurant. Used to display route on map and give eta in panel. This is passed in from the navigationlink in content view. Will be null if user location is not accessible or maps service is not working
+     EnvironmentObject UserLocation is initialized in scene delegate; stores user location and has method to calculate route to restuarant, used to calculate route and pass route object to detailview
      */
-    var restaurantRoute: MKRoute?;
+    @EnvironmentObject var userLocationServices: UserLocation;
     
     /**
      Variable storing offset for FullRestaurantInfoView to allow drag gestures.
@@ -34,10 +34,10 @@ struct RestaurantDetailView: View {
     var body: some View{
         //Text("Hello World!")
         ZStack {
-            SingleRestaurantMapView(restaurant: restaurant, restaurantRoute: restaurantRoute)
+            SingleRestaurantMapView(restaurant: restaurant, restaurantRoute: userLocationServices.routeDictionary[restaurant.restaurant_ID, default: nil])
                 .edgesIgnoringSafeArea(.all)
             if(restaurant.getIsReady() == 1) {
-                FullRestaurantInfoView(restaurant: restaurant)
+                FullRestaurantInfoView(restaurant: restaurant, restaurantRoute: userLocationServices.routeDictionary[restaurant.restaurant_ID, default: nil])
                     .offset(x: 0, y: detailOffset)
                     .gesture(DragGesture()
                         .onChanged({ value in
@@ -47,7 +47,6 @@ struct RestaurantDetailView: View {
                         })
                         .onEnded({ value in
                             withAnimation(.easeIn){
-                                print(restaurantRoute.debugDescription)
                                 //moved panel down
                                 if(value.translation.height > 0){
                                     detailOffset = UIScreen.main.bounds.height - 220;
@@ -59,6 +58,12 @@ struct RestaurantDetailView: View {
                             }
                         })
                     )
+            }
+        }
+        .onAppear{
+            //route has not been calculated yet, or previous request resulted in error
+            if(userLocationServices.routeDictionary[restaurant.restaurant_ID, default: nil] == nil){
+                userLocationServices.addRouteToDictionary(restaurant: restaurant);
             }
         }
     }

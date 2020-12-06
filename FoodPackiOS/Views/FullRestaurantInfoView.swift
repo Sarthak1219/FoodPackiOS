@@ -25,6 +25,11 @@ struct FullRestaurantInfoView: View {
     @ObservedObject var restaurant: Restaurant;
     
     /**
+     Variable of type MKRoute stores route from user's current location to restaurant. Used to show eta in panel. Passed in from RestaurantDetailView. Will be null if user location is not accessible or maps service is not working
+     */
+    var restaurantRoute: MKRoute?;
+    
+    /**
      Helper variable dateOutput is of type DateFormatter, which allows eta to be displayed from route.
      It is constructed only when route is available (computed value)
      */
@@ -34,11 +39,6 @@ struct FullRestaurantInfoView: View {
         formatter.timeStyle = .short;
         return formatter;
     }
-    
-    /**
-     Variable of type MKRoute stores route from user's current location to restaurant. Used to show eta in panel. Passed in from RestaurantDetailView. Will be null if user location is not accessible or maps service is not working
-     */
-    var restaurantRoute: MKRoute?;
     
     var body: some View {
         VStack {
@@ -55,6 +55,7 @@ struct FullRestaurantInfoView: View {
                         .padding(.leading, 20)
                         //
                     Spacer()
+                    //TODO, allow options of ETA, distance, and time
                     Text("ETA:")
                         .font(.headline)
                         .fontWeight(.bold)
@@ -63,8 +64,8 @@ struct FullRestaurantInfoView: View {
                             Text("NA")
                         }
                         else{
-                            //TODO: add restaurantRoute!.expectedTravelTime to current date for ETA
-                            Text(dateOutput.string(from: Date()))
+                            //Text(String(restaurantRoute!.distance) + " Meters")
+                            Text(dateOutput.string(from: Date() + restaurantRoute!.expectedTravelTime))
                         }
                     }
                     .font(.callout)
