@@ -13,10 +13,11 @@ import MapKit
 /**
 UserLocation class is a helper class for map views.
 Uses NSObject and CLLocationManagerDelegate protocols to allow updates to user location and view.
- Uses ObservableOject Protocol and @published so map views auto update when user's location changes and route has been calculated
+ Uses ObservableOject Protocol and @published so map views auto update when user's location changes and routes have been calculated
  Maintains an instance of a locationManager, which allows access to the user's location.
  Maintains the user's current location as it is updated.
- Includes private method for checking permissions.
+ Maintains a dictionary of routes calculated to given restaurants.
+ Includes methods for calculating routes (added to dictionary) and getting a route given the restaurant.
  */
 class UserLocation: NSObject, CLLocationManagerDelegate, ObservableObject{
     
@@ -34,7 +35,7 @@ class UserLocation: NSObject, CLLocationManagerDelegate, ObservableObject{
      Stores collection of routes calculated for UI.
      Key is restuarant_ID, value is route calculated.
      */
-    @Published var routeDictionary: [Int: MKRoute?] = [:];
+    @Published private var routeDictionary: [Int: MKRoute] = [:];
     
     /**
      Constructor initializes CLLocationManagerDelegate
@@ -46,6 +47,7 @@ class UserLocation: NSObject, CLLocationManagerDelegate, ObservableObject{
     
     /**
      Helper method configures request and returns for use in route calculation
+     Precondition: currentLocation must not be null
      */
     private func createRequest(restaurant: Restaurant) -> MKDirections.Request{
         let request = MKDirections.Request();
@@ -78,25 +80,33 @@ class UserLocation: NSObject, CLLocationManagerDelegate, ObservableObject{
     
     /**
      Funtion adds MKRoute object given restaurant from route calculation to user location's dictionary of routes
-     If the currentLocation is null, or the response from apple servers returns an error, a nil route is added for the restuarant.
+     If the currentLocation is null, or the response from apple servers returns an error, nothing happens to the dictionary (no added nil's)
      */
     func addRouteToDictionary(restaurant: Restaurant) {
         if(currentLocation == nil){
-            self.routeDictionary.updateValue(nil, forKey: restaurant.restaurant_ID);
+            //do nothing, the dictionary will remain the same
+            return;
         }
         
         //calls private helper func
-        else{
-            calculateRoute(routeRequest: createRequest(restaurant: restaurant)){ result in
-                do{
-                    //adds route for given restuarant. result.get() will throw if error was returned from calculate method
-                    try self.routeDictionary.updateValue(result.get().routes[0], forKey: restaurant.restaurant_ID);
-                } catch{
-                    //add nil for route unavailable
-                    self.routeDictionary.updateValue(nil, forKey: restaurant.restaurant_ID);
-                }
+        calculateRoute(routeRequest: createRequest(restaurant: restaurant)){ result in
+            do{
+                //adds/updates route to given restuarant. result.get() will throw if error was returned from calculate method
+                try self.routeDictionary[restaurant.restaurant_ID] = result.get().routes[0];
+            } catch{
+                //do nothing, the dictionary will remain the same
             }
         }
+    }
+    
+    /**
+     Function returns route given restuarant. If the restuarant does not have a route, the function returns nil.
+     */
+    func getRouteFromDictionary(restaurant: Restaurant) -> MKRoute? {
+        if(self.routeDictionary.index(forKey: restaurant.restaurant_ID) == nil){//restuarant not in dictionary
+            return nil;
+        }
+        return self.routeDictionary[restaurant.restaurant_ID];
     }
     
     /**
@@ -143,6 +153,7 @@ class UserLocation: NSObject, CLLocationManagerDelegate, ObservableObject{
             currentLocation = locationManager.location?.coordinate;
         }
         else{
+            //clear route dictionary
             currentLocation = nil;
         }
     }

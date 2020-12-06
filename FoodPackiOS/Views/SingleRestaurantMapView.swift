@@ -31,23 +31,30 @@ struct SingleRestaurantMapView: UIViewRepresentable {
         return MKMapView()
     }
     
+    func mapView(_ mapView: MKMapView,
+                 rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay);
+        renderer.strokeColor = .red;
+        return renderer;
+    }
+    
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        //add restuarant to map
+        //adds restuarant to map
         let restaurantpin = MKPointAnnotation()
         restaurantpin.title = restaurant.restaurant_name
         restaurantpin.coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(restaurant.latitude), longitude: CLLocationDegrees(restaurant.longitude))
         uiView.addAnnotation(restaurantpin)
         
-        //add user location and route information, if available
-        //change to if route is nil or not
-        
-        
-        let coordinate = CLLocationCoordinate2D(
-            latitude: CLLocationDegrees(restaurant.latitude), longitude: CLLocationDegrees(restaurant.longitude))
-        //numbers are random, will be scalefactor of users distance from restaurant
-        let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
-        let region = MKCoordinateRegion(center: coordinate, span: span)
-        uiView.setRegion(region, animated: true)
+        //adds user location and route information, if available
+        if(restaurantRoute != nil){
+            uiView.showsUserLocation = true;//precondition of route being calculated is userLocation being available
+            uiView.addOverlay(restaurantRoute!.polyline)//TODO, overlay is not visible
+            uiView.setVisibleMapRect(restaurantRoute!.polyline.boundingMapRect, animated: true)
+        }
+        else{
+            uiView.showsUserLocation = false;
+            uiView.setRegion(MKCoordinateRegion(center: restaurantpin.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)), animated: true)
+        }
     }
 }
 

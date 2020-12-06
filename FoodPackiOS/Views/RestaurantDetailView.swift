@@ -34,14 +34,14 @@ struct RestaurantDetailView: View {
     var body: some View{
         //Text("Hello World!")
         ZStack {
-            SingleRestaurantMapView(restaurant: restaurant, restaurantRoute: userLocationServices.routeDictionary[restaurant.restaurant_ID, default: nil])
+            SingleRestaurantMapView(restaurant: restaurant, restaurantRoute: userLocationServices.getRouteFromDictionary(restaurant: restaurant))
                 .edgesIgnoringSafeArea(.all)
             if(restaurant.getIsReady() == 1) {
-                FullRestaurantInfoView(restaurant: restaurant, restaurantRoute: userLocationServices.routeDictionary[restaurant.restaurant_ID, default: nil])
+                FullRestaurantInfoView(restaurant: restaurant, restaurantRoute: userLocationServices.getRouteFromDictionary(restaurant: restaurant))
                     .offset(x: 0, y: detailOffset)
                     .gesture(DragGesture()
                         .onChanged({ value in
-                            //add "resistance"
+                            //TODO: add "resistance" to avoid showing bottom
                             detailOffset =
                                 value.location.y;
                         })
@@ -61,8 +61,9 @@ struct RestaurantDetailView: View {
             }
         }
         .onAppear{
-            //route has not been calculated yet, or previous request resulted in error
-            if(userLocationServices.routeDictionary[restaurant.restaurant_ID, default: nil] == nil){
+            //route is not in the dictionary of userLocationServices
+            //this can be because first time accessing this view for this restuarant, errors in getting route the first time, user location being unavailable, or user location has changed/permissions were denied since the first route calculation
+            if(userLocationServices.getRouteFromDictionary(restaurant: restaurant) == nil){
                 userLocationServices.addRouteToDictionary(restaurant: restaurant);
             }
         }
