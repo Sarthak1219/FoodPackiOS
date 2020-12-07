@@ -1,5 +1,7 @@
 # FoodPackiOS
-FoodPack iOS App for Volunteers in FoodPack Program.
+The FoodPack program idea is a system where restuarants can request pickup for excess food to be delivered to nearby partner organizations, such as food pantry's, food banks, etd.
+
+FoodPack iOS App for Volunteers in FoodPack Program allows them to view pending requests and accept/get directions.
 
 App gets data from MySQL DataBase -using a PHP script- containing information about Restaurants, including location and inventory message. 
 
