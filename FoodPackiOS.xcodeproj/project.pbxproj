@@ -28,7 +28,9 @@
 		2D41963C2500A47500DE19D7 /* Test_Files in Resources */ = {isa = PBXBuildFile; fileRef = 2D41963A2500A47500DE19D7 /* Test_Files */; };
 		2D9B0C45251BCFFD0001DC38 /* UserLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9B0C44251BCFFD0001DC38 /* UserLocation.swift */; };
 		2DA86BDC25008D2A00343544 /* RestaurantInputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA86BDB25008D2A00343544 /* RestaurantInputTests.swift */; };
-		2DAE1FB0257FD3B600B1B515 /* Github Images in Resources */ = {isa = PBXBuildFile; fileRef = 2DAE1FAF257FD3B600B1B515 /* Github Images */; };
+		2DAE1FBB257FD58B00B1B515 /* Home Screen.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DAE1FB8257FD58B00B1B515 /* Home Screen.png */; };
+		2DAE1FBC257FD58B00B1B515 /* Single Restaurant with Panel.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DAE1FB9257FD58B00B1B515 /* Single Restaurant with Panel.png */; };
+		2DAE1FBD257FD58B00B1B515 /* Single Restaurant.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DAE1FBA257FD58B00B1B515 /* Single Restaurant.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,7 +77,9 @@
 		2D41963A2500A47500DE19D7 /* Test_Files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Test_Files; sourceTree = "<group>"; };
 		2D9B0C44251BCFFD0001DC38 /* UserLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocation.swift; sourceTree = "<group>"; };
 		2DA86BDB25008D2A00343544 /* RestaurantInputTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantInputTests.swift; sourceTree = "<group>"; };
-		2DAE1FAF257FD3B600B1B515 /* Github Images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Github Images"; path = "../../../Desktop/Github Images"; sourceTree = "<group>"; };
+		2DAE1FB8257FD58B00B1B515 /* Home Screen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Home Screen.png"; sourceTree = "<group>"; };
+		2DAE1FB9257FD58B00B1B515 /* Single Restaurant with Panel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Single Restaurant with Panel.png"; sourceTree = "<group>"; };
+		2DAE1FBA257FD58B00B1B515 /* Single Restaurant.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Single Restaurant.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,7 +131,7 @@
 		2D120F9C24FFF15100064C40 /* FoodPackiOS */ = {
 			isa = PBXGroup;
 			children = (
-				2DAE1FAF257FD3B600B1B515 /* Github Images */,
+				2DAE1FB7257FD58B00B1B515 /* Github Images */,
 				2D120F9D24FFF15100064C40 /* AppDelegate.swift */,
 				2D120F9F24FFF15100064C40 /* SceneDelegate.swift */,
 				2D69BA23250E96B3003E8F83 /* Views */,
@@ -182,6 +186,16 @@
 				2D10054C2504185400FA4B5D /* FullRestaurantInfoView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		2DAE1FB7257FD58B00B1B515 /* Github Images */ = {
+			isa = PBXGroup;
+			children = (
+				2DAE1FB8257FD58B00B1B515 /* Home Screen.png */,
+				2DAE1FB9257FD58B00B1B515 /* Single Restaurant with Panel.png */,
+				2DAE1FBA257FD58B00B1B515 /* Single Restaurant.png */,
+			);
+			path = "Github Images";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,9 +302,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DAE1FB0257FD3B600B1B515 /* Github Images in Resources */,
 				2D120FAA24FFF15200064C40 /* LaunchScreen.storyboard in Resources */,
 				2D06B8122518571500AE9BB7 /* Test_Location.gpx in Resources */,
+				2DAE1FBB257FD58B00B1B515 /* Home Screen.png in Resources */,
+				2DAE1FBD257FD58B00B1B515 /* Single Restaurant.png in Resources */,
+				2DAE1FBC257FD58B00B1B515 /* Single Restaurant with Panel.png in Resources */,
 				2D41963B2500A47500DE19D7 /* Test_Files in Resources */,
 				2D120FA724FFF15200064C40 /* Preview Assets.xcassets in Resources */,
 				2D120FA424FFF15200064C40 /* Assets.xcassets in Resources */,
