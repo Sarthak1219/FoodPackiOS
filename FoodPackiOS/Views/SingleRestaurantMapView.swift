@@ -50,7 +50,7 @@ struct SingleRestaurantMapView: UIViewRepresentable {
         if(restaurantRoute != nil){
             uiView.showsUserLocation = true;//precondition of route being calculated is userLocation being available
             uiView.addOverlay(restaurantRoute!.polyline)//TODO, overlay is not visible
-            uiView.setVisibleMapRect(restaurantRoute!.polyline.boundingMapRect, animated: true)
+            uiView.setVisibleMapRect(MKMapRect(origin: restaurantRoute!.polyline.boundingMapRect.origin, size: MKMapSize(width: restaurantRoute!.polyline.boundingMapRect.width, height: restaurantRoute!.polyline.boundingMapRect.height * 1.1)), animated: true)
         }
         else{
             uiView.showsUserLocation = false;
