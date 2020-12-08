@@ -27,17 +27,18 @@ struct SingleRestaurantMapView: UIViewRepresentable {
      */
     var restaurantRoute: MKRoute?;
     
+    /**
+     Initial function is called and returns empty map view. Using context sets the delegate of the view to an instance of internal class Coordinator.
+     */
     func makeUIView(context: Context) -> MKMapView {
-        return MKMapView()
+        let view = MKMapView();
+        view.delegate = context.coordinator;
+        return view;
     }
     
-    func mapView(_ mapView: MKMapView,
-                 rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let renderer = MKPolylineRenderer(overlay: overlay);
-        renderer.strokeColor = .red;
-        return renderer;
-    }
-    
+    /**
+     Update function adds restuarant pin and route information, if available. Context is current environment info given by iOS. This includes info about the view and its coordinator.
+     */
     func updateUIView(_ uiView: MKMapView, context: Context) {
         //adds restuarant to map
         let restaurantpin = MKPointAnnotation()
@@ -45,7 +46,7 @@ struct SingleRestaurantMapView: UIViewRepresentable {
         restaurantpin.coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(restaurant.latitude), longitude: CLLocationDegrees(restaurant.longitude))
         uiView.addAnnotation(restaurantpin)
         
-        //adds user location and route information, if available
+        //show user location and route information, if available
         if(restaurantRoute != nil){
             uiView.showsUserLocation = true;//precondition of route being calculated is userLocation being available
             uiView.addOverlay(restaurantRoute!.polyline)//TODO, overlay is not visible
@@ -56,6 +57,42 @@ struct SingleRestaurantMapView: UIViewRepresentable {
             uiView.setRegion(MKCoordinateRegion(center: restaurantpin.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)), animated: true)
         }
     }
+    
+    /**
+     Internal function creates instance of Coordinator inner class. Used in MakeUIView method to set view's delegate to Coordinator
+     */
+    internal func makeCoordinator() -> Coordinator {
+        return Coordinator(self);
+    }
+    
+    /**
+     Inner class allows various listener methods for events happening in the map view view.
+     Used to provide renderer for drawing route lines.
+     */
+    internal class Coordinator: NSObject, MKMapViewDelegate{
+        
+        /**
+         Stores the parent view for use in methods.
+         */
+        var parent: SingleRestaurantMapView;
+
+        /**
+         Constructor sets the parent view state.
+         */
+        init(_ parent: SingleRestaurantMapView) {
+            self.parent = parent;
+        }
+        
+        /**
+         Method provides Map View renderer when addOverlay is called to draw route line.
+         */
+        func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+            let routeRenderer = MKPolylineRenderer(overlay: overlay);
+            routeRenderer.strokeColor = UIColor(red: 1, green: 0, blue: 0, alpha: 0.5);//alpha = opacity
+            return routeRenderer;
+        }
+    }
+    
 }
 
 struct SingleRestaurantMapView_Previews: PreviewProvider {
