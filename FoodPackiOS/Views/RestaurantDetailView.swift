@@ -10,6 +10,16 @@ import SwiftUI
 import MapKit
 
 /**
+ Constant value for offset needed to hide most of restaurant info panel.
+ */
+private let PANEL_HIDDEN_OFFSET = UIScreen.main.bounds.height - 275;
+
+/**
+ Constant value for offset needed to show  restaurant info panel.
+ */
+private let PANEL_SHOWN_OFFSET = UIScreen.main.bounds.height - 475;
+
+/**
  RestaurantDetailView is view shown when restaurant is selected from ContentView
  Uses SingleRestaurantMapView to Show Map location of restaurant and user's current location.
  Uses FullRestaurantInfoView to show all details, including inventory message, volunteer message, and button to accept request.
@@ -29,7 +39,7 @@ struct RestaurantDetailView: View {
     /**
      Variable storing offset for FullRestaurantInfoView to allow drag gestures.
      */
-    @State private var detailOffset = UIScreen.main.bounds.height - 220;
+    @State private var detailOffset = PANEL_HIDDEN_OFFSET;
     
     var body: some View{
         //Text("Hello World!")
@@ -49,11 +59,11 @@ struct RestaurantDetailView: View {
                             withAnimation(.easeIn){
                                 //moved panel down
                                 if(value.translation.height > 0){
-                                    detailOffset = UIScreen.main.bounds.height - 220;
+                                    detailOffset = PANEL_HIDDEN_OFFSET;
                                 }
                                 //moved panel up
                                 else if(value.translation.height < 0){
-                                    detailOffset = UIScreen.main.bounds.height - 440;
+                                    detailOffset = PANEL_SHOWN_OFFSET;
                                 }
                             }
                         })
