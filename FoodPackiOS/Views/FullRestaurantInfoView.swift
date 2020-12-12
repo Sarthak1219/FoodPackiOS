@@ -40,6 +40,20 @@ struct FullRestaurantInfoView: View {
         return formatter;
     }
     
+    /**
+     Enum containing cases for route information User can access.
+     */
+    private enum routeOptions: String{
+        case ETA;
+        case Time;
+        case Distance;
+    }
+    
+    /**
+     Private state variable stores user-selected route option.
+     */
+    @State private var selectedRouteOption = routeOptions.ETA;
+    
     var body: some View {
         VStack {
             //Spacer()
@@ -56,7 +70,7 @@ struct FullRestaurantInfoView: View {
                         //
                     Spacer()
                     //TODO, allow options of ETA, distance, and time
-                    Text("ETA:")
+                    Text(selectedRouteOption.rawValue + ":")
                         .font(.headline)
                         .fontWeight(.bold)
                     Group{
@@ -64,14 +78,31 @@ struct FullRestaurantInfoView: View {
                             Text("NA")
                         }
                         else{
-                            //Text(String(restaurantRoute!.distance) + " Meters")
-                            Text(dateOutput.string(from: Date() + restaurantRoute!.expectedTravelTime))
+                            switch selectedRouteOption {
+                            case .ETA:
+                                //current date + travel time.
+                                //dateoutput is declared above
+                                Text(dateOutput.string(from: Date() + restaurantRoute!.expectedTravelTime))
+                            case .Time:
+                                //converted from seconds to min, then result is rounded
+                                Text(String(Int((restaurantRoute!.expectedTravelTime/60).rounded())) + " min")
+                            case .Distance:
+                                //converted from meters to miles, then result is rounded (one decimal place)
+                                Text(String((restaurantRoute!.distance / 1609.34 * 10).rounded() / 10) + " mi")
+                            }
                         }
                     }
                     .font(.callout)
                     .padding(.trailing, 20)
                 }
                 .foregroundColor(Color.white)
+                .padding(.bottom, -5)
+                Picker("Options", selection: $selectedRouteOption){
+                    Text("ETA").tag(routeOptions.ETA)
+                    Text("Time").tag(routeOptions.Time)
+                    Text("Distance").tag(routeOptions.Distance)
+                }
+                .pickerStyle(SegmentedPickerStyle())
                 .padding(.bottom, 20)
                 Divider()
                 HStack {
@@ -85,6 +116,7 @@ struct FullRestaurantInfoView: View {
                         .fontWeight(.semibold)
                         .foregroundColor(Color.white)
                         .multilineTextAlignment(.center)
+                        .lineLimit(2)
                     Spacer()
                 }
                 Divider()
@@ -92,6 +124,7 @@ struct FullRestaurantInfoView: View {
                     .font(.subheadline)
                     .fontWeight(.medium)
                     .foregroundColor(Color.white)
+                    .lineLimit(1)
                     .multilineTextAlignment(.center)
                     .padding(.vertical, 5)
                 Button(action: {
