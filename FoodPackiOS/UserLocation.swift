@@ -153,8 +153,8 @@ class UserLocation: NSObject, CLLocationManagerDelegate, ObservableObject{
             currentLocation = locationManager.location?.coordinate;
         }
         else{
-            //clear route dictionary
             currentLocation = nil;
+            routeDictionary.removeAll();//because location access is denied, previous routes are now invalid (if any)
         }
     }
     
@@ -164,7 +164,7 @@ class UserLocation: NSObject, CLLocationManagerDelegate, ObservableObject{
      */
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = locations.last?.coordinate;
-        //clear route dictionary, as previous routes are now outdated
+        routeDictionary.removeAll();//because location has changed, previous routes are now invalid
     }
     
 }

@@ -67,7 +67,7 @@ struct FullRestaurantInfoView: View {
                         .fontWeight(.black)
                         .multilineTextAlignment(.center)
                         .padding(.leading, 20)
-                        //
+                        .lineLimit(1)
                     Spacer()
                     //TODO, allow options of ETA, distance, and time
                     Text(selectedRouteOption.rawValue + ":")

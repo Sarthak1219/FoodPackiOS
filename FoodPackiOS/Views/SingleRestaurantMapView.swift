@@ -50,7 +50,7 @@ struct SingleRestaurantMapView: UIViewRepresentable {
         if(restaurantRoute != nil){
             uiView.showsUserLocation = true;//precondition of route being calculated is userLocation being available
             uiView.addOverlay(restaurantRoute!.polyline)//TODO, overlay is not visible
-            uiView.setVisibleMapRect(MKMapRect(origin: restaurantRoute!.polyline.boundingMapRect.origin, size: MKMapSize(width: restaurantRoute!.polyline.boundingMapRect.width, height: restaurantRoute!.polyline.boundingMapRect.height * 1.1)), animated: true)
+            uiView.setVisibleMapRect(MKMapRect(origin: restaurantRoute!.polyline.boundingMapRect.origin, size: MKMapSize(width: restaurantRoute!.polyline.boundingMapRect.width, height: restaurantRoute!.polyline.boundingMapRect.height * 1.2)), animated: true)
         }
         else{
             uiView.showsUserLocation = false;
@@ -61,7 +61,7 @@ struct SingleRestaurantMapView: UIViewRepresentable {
     /**
      Internal function creates instance of Coordinator inner class. Used in MakeUIView method to set view's delegate to Coordinator
      */
-    internal func makeCoordinator() -> Coordinator {
+    func makeCoordinator() -> Coordinator {
         return Coordinator(self);
     }
     
@@ -69,7 +69,7 @@ struct SingleRestaurantMapView: UIViewRepresentable {
      Inner class allows various listener methods for events happening in the map view view.
      Used to provide renderer for drawing route lines.
      */
-    internal class Coordinator: NSObject, MKMapViewDelegate{
+    class Coordinator: NSObject, MKMapViewDelegate{
         
         /**
          Stores the parent view for use in methods.
