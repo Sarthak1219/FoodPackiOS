@@ -3,7 +3,7 @@ The FoodPack program idea is a system where restuarants can request pickup for e
 
 This FoodPack iOS App for Volunteers in FoodPack Program allows them to see restaurants with pending requests, view route and pickup information, and accept requests.
 
-The app gets data from our MySQL DataBase -using a PHP script- containing information about Restaurants, including location and inventory message. 
+The app gets data from our MySQL DataBase -using a PHP script, which contains information about the restaurants, including their location and pickup request messages. 
 
 The Home screen shows a list of all Restaurants with toggle for displaying all or just those waiting for pickup (Red is ready for pickup, Gray is not).
 
