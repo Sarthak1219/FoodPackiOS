@@ -5,11 +5,11 @@ This FoodPack iOS App for Volunteers in the FoodPack Program allows them to see 
 
 The app gets data from our MySQL DataBase -using a PHP script, which contains information about the restaurants, including their location and pickup request messages. 
 
-The Home screen shows the list of partner Restaurants (Red is ready for pickup, Gray is not).
+The Home screen shows the list of partner restaurants (Red is ready for pickup, Gray is not).
 
 <img src="/FoodPackiOS/Github%20Images/Home%20Screen.png" alt="Home Screen View" width="175" height="400">
 
-Clicking a restaurant on the home screen opens a detailed view of the Restaurant's location and route information, inventory and notice messages for the volunteer, and a button to accept the request.
+Clicking a restaurant on the home screen opens a detailed view of the restaurant's location and route information, inventory and notice messages for the volunteer, and a button to accept the request.
 
 Map View | Map View with Panel Showing
 ------------ | -------------
