@@ -51,9 +51,14 @@ struct RestaurantDetailView: View {
                     .offset(x: 0, y: detailOffset)
                     .gesture(DragGesture()
                         .onChanged({ value in
-                            //TODO: add "resistance" to avoid showing bottom
-                            detailOffset =
-                                value.location.y;
+                            //added "resistance" to avoid showing bottom when moving panel up
+                            //offset is average of SHOWN constant and y value of current pos
+                            if(value.translation.height < 0 && value.location.y < PANEL_SHOWN_OFFSET){
+                                detailOffset = (value.location.y + PANEL_SHOWN_OFFSET) / 2;
+                            }
+                            else{
+                                detailOffset = value.location.y;
+                            }
                         })
                         .onEnded({ value in
                             withAnimation(.easeIn){

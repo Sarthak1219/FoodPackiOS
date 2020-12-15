@@ -128,6 +128,7 @@ struct FullRestaurantInfoView: View {
                     .multilineTextAlignment(.center)
                     .padding(.vertical, 5)
                 Button(action: {
+                    //TODO: Move to seperate sections to avoid conflicts
                     //refresh list to check if someone has already taken it
                     restaurant.turnOffIsReady(changingList: restaurantList)
                     //add updates to database
