@@ -53,7 +53,7 @@ struct RestaurantDetailView: View {
                         .onChanged({ value in
                             //added "resistance" to avoid showing bottom when moving panel up
                             //offset is average of SHOWN constant and y value of current pos
-                            if(value.translation.height < 0 && value.location.y < PANEL_SHOWN_OFFSET){
+                            if(value.location.y < PANEL_SHOWN_OFFSET){
                                 detailOffset = (value.location.y + PANEL_SHOWN_OFFSET) / 2;
                             }
                             else{

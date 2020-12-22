@@ -9,16 +9,6 @@
 import Foundation
 
 /**
- Enumeration RestaurantInputError describes possible errors in RestaurantInput Struct
- */
-enum RestaurantInputError: Error{
-    case fileNotFound;
-    case cannotGetDataFromFileUrl;
-    case dataIsEmpty;
-    case decodeError;
-}
-
-/**
  Static Struct RestaurantInput Describes Input for FoodPack Application
  Used for getting restaurant data from JSON sources.
  Allows data to be read in from a local file or database, and data to be parsed to an array of type Restaurant.
@@ -37,6 +27,16 @@ struct RestaurantInput{
     Global Filename Variable for initializing empty list.
     */
     static let emptyfilename: String = "Test_Files/Test_Empty_Restaurant_Info";
+    
+    /**
+     Enumeration RestaurantInputError describes possible errors in RestaurantInput Struct
+     */
+    enum RestaurantInputError: Error{
+        case fileNotFound;
+        case cannotGetDataFromFileUrl;
+        case dataIsEmpty;
+        case decodeError;
+    }
     
     /**
      RestauratInput Method readDataBaseTable stores data from php script -that returns all restaurant_info in JSON- in result completion success case.
@@ -87,7 +87,7 @@ struct RestaurantInput{
      If the JSONData is empty, an RestaurantInputError.dataIsEmpty will be thrown
      If the data cannot be decode into an array of type Restaurant, an RestaurantInputError.decodeError will be thrown
      */
-    static func parseJSON(JSONData: Data?) throws -> [Restaurant]{
+    static func parseJSON(JSONData: Data?) throws -> [Restaurant] {
         //if the data is null, statement evaluates to true automatically
         if(JSONData?.isEmpty ?? true){
             throw RestaurantInputError.dataIsEmpty;

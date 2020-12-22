@@ -42,14 +42,18 @@ class UserLocation: NSObject, CLLocationManagerDelegate, ObservableObject{
      */
     override init(){
         super.init();
-        locationManager.delegate = self;
+        locationManager.delegate = self;// UserLocation itself is the Delegate
     }
     
     /**
      Helper method configures request and returns for use in route calculation
-     Precondition: currentLocation must not be null
+     Precondition: currentLocation must not be null, method will return nil if this is true
      */
-    private func createRequest(restaurant: Restaurant) -> MKDirections.Request{
+    private func createRequest(restaurant: Restaurant) -> MKDirections.Request? {
+        if(currentLocation == nil){
+            return nil;
+        }
+        
         let request = MKDirections.Request();
         request.source = MKMapItem(placemark: MKPlacemark(coordinate: currentLocation!));
         request.destination = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(
@@ -89,7 +93,7 @@ class UserLocation: NSObject, CLLocationManagerDelegate, ObservableObject{
         }
         
         //calls private helper func
-        calculateRoute(routeRequest: createRequest(restaurant: restaurant)){ result in
+        calculateRoute(routeRequest: createRequest(restaurant: restaurant)!){ result in
             do{
                 //adds/updates route to given restuarant. result.get() will throw if error was returned from calculate method
                 try self.routeDictionary[restaurant.restaurant_ID] = result.get().routes[0];

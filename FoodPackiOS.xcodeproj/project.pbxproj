@@ -22,6 +22,7 @@
 		2D120FC024FFF15200064C40 /* FoodPackiOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D120FBF24FFF15200064C40 /* FoodPackiOSUITests.swift */; };
 		2D120FD024FFF3EC00064C40 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D120FCF24FFF3EC00064C40 /* Restaurant.swift */; };
 		2D120FD224FFF68900064C40 /* RestaurantInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D120FD124FFF68800064C40 /* RestaurantInput.swift */; };
+		2D24B1122592409E00C0D100 /* RestaurantOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D24B1112592409E00C0D100 /* RestaurantOutput.swift */; };
 		2D3846412510E591001E512D /* RestaurantList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3846402510E591001E512D /* RestaurantList.swift */; };
 		2D3846432510F2A0001E512D /* RestaurantListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3846422510F2A0001E512D /* RestaurantListTests.swift */; };
 		2D41963B2500A47500DE19D7 /* Test_Files in Resources */ = {isa = PBXBuildFile; fileRef = 2D41963A2500A47500DE19D7 /* Test_Files */; };
@@ -72,6 +73,7 @@
 		2D120FC124FFF15200064C40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D120FCF24FFF3EC00064C40 /* Restaurant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		2D120FD124FFF68800064C40 /* RestaurantInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantInput.swift; sourceTree = "<group>"; };
+		2D24B1112592409E00C0D100 /* RestaurantOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantOutput.swift; sourceTree = "<group>"; };
 		2D3846402510E591001E512D /* RestaurantList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantList.swift; sourceTree = "<group>"; };
 		2D3846422510F2A0001E512D /* RestaurantListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantListTests.swift; sourceTree = "<group>"; };
 		2D41963A2500A47500DE19D7 /* Test_Files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Test_Files; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				2D120FA324FFF15200064C40 /* Assets.xcassets */,
 				2D120FCF24FFF3EC00064C40 /* Restaurant.swift */,
 				2D120FD124FFF68800064C40 /* RestaurantInput.swift */,
+				2D24B1112592409E00C0D100 /* RestaurantOutput.swift */,
 				2D3846402510E591001E512D /* RestaurantList.swift */,
 				2D9B0C44251BCFFD0001DC38 /* UserLocation.swift */,
 				2D120FA824FFF15200064C40 /* LaunchScreen.storyboard */,
@@ -342,6 +345,7 @@
 				2D120F9E24FFF15100064C40 /* AppDelegate.swift in Sources */,
 				2D120FD224FFF68900064C40 /* RestaurantInput.swift in Sources */,
 				2D9B0C45251BCFFD0001DC38 /* UserLocation.swift in Sources */,
+				2D24B1122592409E00C0D100 /* RestaurantOutput.swift in Sources */,
 				2D10054B250414EA00FA4B5D /* SingleRestaurantMapView.swift in Sources */,
 				2D120FA024FFF15100064C40 /* SceneDelegate.swift in Sources */,
 				2D1005472503F80200FA4B5D /* RestaurantRowView.swift in Sources */,
